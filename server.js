@@ -9,7 +9,7 @@ app.set('port', (process.env.PORT || 3000));
 
 var ipaddress = '127.0.0.1';
 
-app.use(express.static(__dirname+'/public/UserPages'));
+app.use(express.static(__dirname+'/public'));
 
 
 
