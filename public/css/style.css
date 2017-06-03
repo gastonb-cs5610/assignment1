@@ -24,6 +24,11 @@ a:hover {
     padding-bottom: 10%;
 }
 
+.cl-top-widget {
+    margin-top: 70px;
+}
+
+
 .cl-web-navbar {
     background-color: #00b7aa;
 }
@@ -113,4 +118,9 @@ a:hover {
     width: 85%;
     z-index: 100;
     position: relative;
+}
+
+.cl-my-name {
+    color: #ffffff;
+    font-family: Serif;
 }
