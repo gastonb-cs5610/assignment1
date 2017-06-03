@@ -11,6 +11,10 @@ input.form-control {
     margin-bottom: 2em;
 }
 
+.cl-form-bottom-padding-none {
+    margin-bottom: 0;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -20,12 +24,17 @@ a:hover {
     padding-bottom: 10%;
 }
 
-.cl-blue-navbar {
-    background-color: #337ab7;
+.cl-web-navbar {
+    background-color: #00b7aa;
 }
 
 .cl-text-white {
     color: #fff;
+}
+
+.cl-form-label-soft {
+    font-weight: normal;
+    margin-bottom: 0;
 }
 
 .cl-text-black {
