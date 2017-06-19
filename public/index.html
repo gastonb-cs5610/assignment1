@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebAppMaker">
 <head>
     <meta charset="UTF-8">
-    <title>Website List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>WebMakerApp</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+
+
     <link href="css/style.css" rel="stylesheet"/>
+
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <!--Service-->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+
+    <!--Controllers-->
+    <script src="views/user/user.controller.client.js"></script>
+    <script src="views/website/website.controller.client.js"></script>
+    <script src="views/pages/pages.controller.client.js"></script>
+    <script src="views/widget/widget.controller.client.js"></script>
+
+
+
 </head>
 <body>
-
-<nav class="navbar navbar-fixed-top cl-web-navbar">
-    <div class="container-fluid">
-        <h3 class="cl-my-name">Brittany Blue Gaston</h3>
-    </div>
-</nav>
-
-<div class="container">
-    <ul class="list-group cl-list-group-borderless">
-        <li class="list-group-item">
-            <a href="UserPages/login.html">Assignment</a>
-        </li>
-        <li class="list-group-item">
-            <a href="#">Project</a>
-        </li>
-    </ul>
-</div>
-
-<nav class="navbar navbar-fixed-bottom cl-web-navbar">
-    <div class="container-fuild">
-        <a href="#" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-            <span class="glyphicon glyphicon-user"></span>
-        </a>
-    </div>
-</nav>
-
+<div ng-view></div>
 </body>
 </html>

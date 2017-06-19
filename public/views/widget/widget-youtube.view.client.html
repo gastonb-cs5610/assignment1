@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Widget Youtube</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
         <div class="navbar-text pull-left">
-            <a href="widget-list.html" class="cl-text-black cl-icon-padding">
+            <a href="widget-list.view.client.html" class="cl-text-black cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="widget-list.html" class="cl-icon-padding cl-text-black">
+            <a href="widget-list.view.client.html" class="cl-icon-padding cl-text-black">
           <span class="glyphicon glyphicon-ok">
           </span>
             </a>
@@ -33,21 +22,21 @@
     <form>
         <div class="form-group cl-form-bottom-padding-none">
             <label for="image-name" class="cl-form-label-soft">Name</label>
-            <input type="text" class="form-control" id="image-name" placeholder="">
+            <input ng-model="model.name" type="text" class="form-control" id="image-name" placeholder="">
         </div>
         <div class="form-group cl-form-bottom-padding-none">
             <label for="image-text" class="cl-form-label-soft">Text</label>
-            <input id="image-text" class="form-control" placeholder="This is example text.">
+            <input ng-model="model.text" id="image-text" class="form-control" placeholder="This is example text.">
         </div>
         <div class="form-group cl-form-bottom-padding-none">
             <label for="URL-input" class="cl-form-label-soft">URL</label>
-            <input id="URL-input" class="form-control" placeholder="">
+            <input ng-model="model.url" id="URL-input" class="form-control" placeholder="">
         </div>
         <div class="form-group cl-form-bottom-padding-none">
             <label for="width-selection" class="cl-form-label-soft">Width</label>
-            <input id="width-selection" class="form-control" placeholder="">
+            <input ng-model="model.width" id="width-selection" class="form-control" placeholder="">
         </div>
-        <a class="btn btn-danger  btn-block" href="widget-list.html">Delete</a>
+        <a class="btn btn-danger  btn-block" href="widget-list.view.client.html">Delete</a>
     </form>
 </div>
 
@@ -55,13 +44,10 @@
     <div class="container-fluid row">
         <div class="pull-right navbar-text">
 
-            <a href="../UserPages/profile.html" class="tv-icon-padding">
+            <a href="../user/profile.view.client.html" class="tv-icon-padding">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
 
         </div>
     </div>
 </nav>
-
-</body>
-</html>

@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
         <div class="navbar-text pull-left">
-            <a href="../WebsitePages/website-list.html" class="cl-text-black cl-icon-padding">
+            <a href="#/user/:uid/website" class="cl-text-black cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="page-new.html" class="cl-icon-padding cl-text-black">
+            <a href="#/user/:uid/website/:wid/page/new" class="cl-icon-padding cl-text-black">
           <span class="glyphicon glyphicon-plus">
           </span>
             </a>
@@ -31,15 +20,16 @@
 
 
 <div class="container-fluid">
-    <form class="cl-form-bottom-padding">
+    <form>
         <div class="form-group cl-form-bottom-padding-none">
             <label for="page-name" class="cl-form-label-soft">Name</label>
-            <input type="text" class="form-control" id="page-name" placeholder="Page Name">
+            <input ng-model="model.name" type="text" class="form-control" id="page-name" placeholder="Page Name">
         </div>
-        <div class="form-group cl-form-bottom-padding">
+        <div class="form-group cl-form-bottom-padding-none">
             <label for="page-description" class="cl-form-label-soft">Title</label>
-            <input id="page-description" class="form-control" placeholder="Page Title">
+            <input ng-model="model.description" id="page-description" class="form-control" placeholder="Page Title">
         </div>
+        <a class="btn btn-danger  btn-block" href="page-list.view.client.html">Delete</a>
     </form>
 </div>
 
@@ -47,13 +37,10 @@
     <div class="container-fluid row">
         <div class="pull-right navbar-text">
 
-            <a href="../UserPages/profile.html" class="tv-icon-padding">
+            <a href="#/user/:uid" class="tv-icon-padding">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
 
         </div>
     </div>
 </nav>
-
-</body>
-</html>
