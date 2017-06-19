@@ -14,10 +14,31 @@
         init();
     }
 
-    function NewWebsiteController($routeParams, WebsiteService) {
+    function NewWebsiteController($routeParams, $location, WebsiteService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
+
+        vm.createWebsite = createWebsite;
+
+        function createWebsite(newSite) {
+
+            console.log(newSite);
+
+
+            if (!newSite || newSite.desc === undefined || newSite.desc === null || newSite.desc === ""
+                || newSite.name === undefined || newSite.name === "" || newSite.name === null) {
+                console.log("errore");
+                vm.error = "Please enter the required fields.";
+                return;
+            }
+
+            WebsiteService.createWebsite(vm.userId, newSite);
+
+            $location.url("/user/" + vm.userId +"/website");
+
+
+        }
 
     }
 
@@ -26,11 +47,27 @@
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
         function init() {
-            vm.user = WebsiteService.findWebsiteById(vm.websiteId);
+            vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
         }
         init();
 
+        console.log(vm.website);
+
         vm.deleteWebsite = deleteWebsite;
+        vm.updateWebsite = updateWebsite;
+
+
+        function updateWebsite() {
+            var updated_site = {
+                _id: $routeParams.wid,
+                name: vm.website.name,
+                developerId: $routeParams.uid,
+                desc: vm.website.desc
+
+            }
+
+            WebsiteService.updateWebsite($routeParams.wid, updated_site);
+        }
 
 
         function deleteWebsite(wid) {

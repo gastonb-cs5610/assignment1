@@ -44,10 +44,12 @@
             var newWebsite = {
                 _id: newWebsiteId,
                 name: website.name,
-                description: website.description,
+                desc: website.desc,
                 developerId: userId
             };
+            console.log(websites);
             websites.push(newWebsite);
+            console.log(websites);
         }
 
         function findWebsitesByUser(userId) {
@@ -72,10 +74,11 @@
         }
 
         function updateWebsite(websiteId, website) {
+            console.log("deep", website);
             var oldWebsite = findWebsiteById(websiteId);
             var index = websites.indexOf(oldWebsite);
             websites[index].name = website.name;
-            websites[index].description = website.description;
+            websites[index].desc = website.desc;
         }
 
         function deleteWebsite(websiteId) {
