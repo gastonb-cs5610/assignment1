@@ -60,6 +60,7 @@
                     result.push(website);
                 }
             }
+            console.log(result);
             return result;
         }
 
@@ -84,10 +85,7 @@
         function deleteWebsite(websiteId) {
             var oldWebsite = findWebsiteById(websiteId);
             var index = websites.indexOf(oldWebsite);
-            console.log("deleting", websites);
             websites.splice(index, 1);
-            console.log(websites);
-
         }
 
         function deleteWebsitesByUser(userId) {

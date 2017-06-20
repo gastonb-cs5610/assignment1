@@ -1,4 +1,4 @@
-(function() {
+(function () {
     angular
         .module("WebAppMaker")
         .controller("WebsiteListController", WebsiteListController)
@@ -11,7 +11,9 @@
         function init() {
             vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
+
         init();
+        console.log(vm.websites);
     }
 
     function NewWebsiteController($routeParams, $location, WebsiteService) {
@@ -35,7 +37,7 @@
 
             WebsiteService.createWebsite(vm.userId, newSite);
 
-            $location.url("/user/" + vm.userId +"/website");
+            $location.url("/user/" + vm.userId + "/website");
 
 
         }
@@ -49,6 +51,7 @@
         function init() {
             vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
         }
+
         init();
 
         console.log(vm.website);
@@ -56,26 +59,23 @@
         vm.deleteWebsite = deleteWebsite;
         vm.updateWebsite = updateWebsite;
 
-
         function updateWebsite() {
-            var updated_site = {
+            var updated_page = {
                 _id: $routeParams.wid,
                 name: vm.website.name,
                 developerId: $routeParams.uid,
-                desc: vm.website.desc
+                description: vm.website.desc
 
             }
+            WebsiteService.updateWebsite($routeParams.pid, updated_page);
+        }
 
-            WebsiteService.updateWebsite($routeParams.wid, updated_site);
+        function deleteWebsite(pid) {
+            console.log(pid);
+            WebsiteService.deletePage(pid)
         }
 
 
-        function deleteWebsite(wid) {
-            console.log(wid);
-            WebsiteService.deleteWebsite(wid)
-        }
-
-
-        }
+    }
 
 })();

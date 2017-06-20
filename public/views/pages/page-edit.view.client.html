@@ -1,43 +1,68 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid row">
-        <div class="navbar-text pull-left">
-            <a href="#/user/:uid/website" class="cl-text-black cl-icon-padding">
-          <span class="glyphicon glyphicon-chevron-left">
-          </span>
-            </a>
+    <div class="row">
+        <div class="col-xs-4 hidden-xs">
+            <div class="container-fluid">
+                <p class="navbar-text pull-left">
+                    <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <a class="cl-text-white navbar-brand cl-text-bold" href="">
+                    Pages
+                </a>
+                <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new"
+                   class="navbar-link navbar-text cl-text-white pull-right">
+                    <span class="glyphicon glyphicon-plus pull-right"></span>
+                </a>
+            </div>
         </div>
-        <div class="navbar-text pull-right">
-            <a href="#/user/:uid/website/:wid/page/new" class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-plus">
-          </span>
-            </a>
+        <div class="col-xs-8">
+            <div class="container-fluid">
+                <a class="cl-text-white navbar-brand cl-text-bold" href="">
+                    Edit Page
+                </a>
+                <a ng-click="model.updatePage(model.page)"
+                   class="navbar-link navbar-text pull-right cl-text-white">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
         </div>
-        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
-            Pages
-        </a>
     </div>
 </nav>
 
 
 <div class="container-fluid">
-    <form>
-        <div class="form-group cl-form-bottom-padding-none">
-            <label for="page-name" class="cl-form-label-soft">Name</label>
-            <input ng-model="model.name" type="text" class="form-control" id="page-name" placeholder="Page Name">
-        </div>
-        <div class="form-group cl-form-bottom-padding-none">
-            <label for="page-description" class="cl-form-label-soft">Title</label>
-            <input ng-model="model.description" id="page-description" class="form-control" placeholder="Page Title">
-        </div>
-        <a class="btn btn-danger  btn-block" href="page-list.view.client.html">Delete</a>
-    </form>
+    <div class="col-xs-4 hidden-xs"  ng-controller="PageListController as model">
+        <ul class="list-group">
+            <li ng-repeat="page in model.pages" class="list-group-item cl-list-item-borderless">
+                <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"><span
+                        class="glyphicon glyphicon-cog pull-right"></span></a>
+                <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-8">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+        <form class="cl-form-bottom-padding">
+            <div class="form-group cl-form-bottom-padding-none">
+                <label for="page-name" class="cl-form-label-soft">Name</label>
+                <input ng-model="model.page.name" type="text" class="form-control" id="page-name" placeholder="Page Name">
+            </div>
+            <div class="form-group cl-form-bottom-padding-none">
+                <label for="page-description" class="cl-form-label-soft">Title</label>
+                <input ng-model="model.page.title" id="page-description" class="form-control" placeholder="Page Title">
+            </div>
+            <a class="btn btn-danger  btn-block" ng-click="model.deletePage(model.pageId)"
+               href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page">Delete</a>
+        </form>
+    </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
         <div class="pull-right navbar-text">
 
-            <a href="#/user/:uid" class="tv-icon-padding">
+            <a href="#!/user/{{model.userId}}" class="tv-icon-padding navbar-link">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
 
