@@ -34,6 +34,8 @@
         vm.createError = null;
 
         function createWidget() {
+            console.log("hey");
+
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
                 if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
                     vm.createError = "Url is required for Image/Youtube";
@@ -65,34 +67,19 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
-        vm.widget = WidgetService.findWidgetById(vm.wgid);
+        vm.widget = angular.copy(WidgetService.findWidgetById(vm.wgid));
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
 
-        if (vm.widget.widgetType === "HEADER") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetSize = vm.widget.size;
-        } else if (vm.widget.widgetType === "IMAGE") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetUrl = vm.widget.url;
-            vm.widgetWidth = vm.widget.width;
-        } else if (vm.widget.widgetType === "YOUTUBE") {
-            vm.widgetName = vm.widget.name;
-            vm.widgetText = vm.widget.text;
-            vm.widgetUrl = vm.widget.url;
-            vm.widgetWidth = vm.widget.width;
-        }
-
         function editWidget() {
+
             var latestData = {
-                name: vm.widgetName,
-                text: vm.widgetText,
+                name: vm.widget.name,
+                text: vm.widget.text,
                 widgetType: vm.widget.widgetType,
-                size: vm.widgetSize,
-                width: vm.widgetWidth,
-                url: vm.widgetUrl
+                size: vm.widget.size,
+                width: vm.widget.width,
+                url: vm.widget.url
             };
             WidgetService.updateWidget(vm.wgid, latestData);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");

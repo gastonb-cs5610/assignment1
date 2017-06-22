@@ -13,7 +13,6 @@
         }
 
         init();
-        console.log(vm.websites);
     }
 
     function NewWebsiteController($routeParams, $location, WebsiteService) {
@@ -25,26 +24,20 @@
 
         function createWebsite(newSite) {
 
-            console.log(newSite);
-
 
             if (!newSite || newSite.desc === undefined || newSite.desc === null || newSite.desc === ""
                 || newSite.name === undefined || newSite.name === "" || newSite.name === null) {
-                console.log("errore");
+
                 vm.error = "Please enter the required fields.";
                 return;
             }
-
             WebsiteService.createWebsite(vm.userId, newSite);
-
             $location.url("/user/" + vm.userId + "/website");
-
-
         }
 
     }
 
-    function EditWebsiteController($routeParams, $timeout, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -54,25 +47,31 @@
 
         init();
 
-        console.log(vm.website);
+
 
         vm.deleteWebsite = deleteWebsite;
         vm.updateWebsite = updateWebsite;
 
         function updateWebsite() {
-            var updated_page = {
+            var updated = {
                 _id: $routeParams.wid,
                 name: vm.website.name,
                 developerId: $routeParams.uid,
-                description: vm.website.desc
+                desc: vm.website.desc
 
             }
-            WebsiteService.updateWebsite($routeParams.pid, updated_page);
+
+            if (!updated || updated.desc === undefined || updated.desc === null || updated.desc === ""
+                || updated.name === undefined || updated.name === "" || updated.name === null) {
+                vm.error = "Please enter the required fields.";
+                return;
+            }
+            WebsiteService.updateWebsite($routeParams.wid, updated);
+            $location.url("/user/" + vm.userId + "/website");
         }
 
-        function deleteWebsite(pid) {
-            console.log(pid);
-            WebsiteService.deletePage(pid)
+        function deleteWebsite(wid) {
+            WebsiteService.deleteWebsite(wid)
         }
 
 

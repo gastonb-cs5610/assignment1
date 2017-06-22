@@ -76,8 +76,10 @@
 
         function updateWebsite(websiteId, website) {
             console.log("deep", website);
+            console.log(websiteId);
             var oldWebsite = findWebsiteById(websiteId);
             var index = websites.indexOf(oldWebsite);
+            console.log(index);
             websites[index].name = website.name;
             websites[index].desc = website.desc;
         }
