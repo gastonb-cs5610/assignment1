@@ -12,6 +12,15 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+
+        vm.getCurrent = getCurrent;
+
+        function getCurrent(wgid) {
+            console.log("yo");
+            vm.current = angular.copy(WidgetService.findWidgetById(wgid));
+            console.log(vm.current);
+        }
+
     }
 
     function NewWidgetController($routeParams, $timeout, WidgetService) {
@@ -20,7 +29,6 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-        vm.futureFeature = futureFeature;
         vm.featureMissingAlert = null;
     }
 

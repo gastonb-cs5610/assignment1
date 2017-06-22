@@ -21,10 +21,10 @@
 </nav>
 
 
-<div class="container">
+<div class="container-fluid">
     <ul class="list-group cl-list-group-borderless">
-        <li ng-repeat="widget in model.widgets">
-        <div ng-switch="widget.widgetType">
+        <li ng-repeat="widget in model.widgets" class="list-group-item cl-list-item-borderless">
+         <div ng-switch="widget.widgetType">
             <div ng-switch-when="HEADING">
                 <ng-include src="'views/widget/templates/widget-heading.view.client.html'"> </ng-include>
             </div>
