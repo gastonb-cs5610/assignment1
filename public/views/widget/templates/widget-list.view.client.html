@@ -1,8 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
-
         <div class="navbar-text pull-left">
-            <a href="../../pages/page-list.view.client.html" class="cl-text-black cl-icon-padding">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="cl-text-black cl-icon-padding">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
@@ -14,41 +13,34 @@
           </span>
             </a>
         </div>
-        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+        <a class="navbar-brand cl-text-white cl-text-bold">
             Widgets
         </a>
     </div>
 </nav>
 
 
-<div class="container-fluid">
-    <ul class="list-group cl-list-group-borderless">
-        <li ng-repeat="widget in model.widgets" class="list-group-item cl-list-item-borderless">
-         <div ng-switch="widget.widgetType">
-            <div ng-switch-when="HEADING">
-                <ng-include src="'views/widget/templates/widget-heading.view.client.html'"> </ng-include>
-            </div>
-            <div ng-switch-when="IMAGE">
-                <ng-include src="'views/widget/templates/widget-image.view.client.html'">  </ng-include>
-            </div>
-            <div ng-switch-when="YOUTUBE">
-                <ng-include src="'views/widget/templates/widget-youtube.view.client.html'">  </ng-include>
-            </div>
+<div class="container" ng-repeat="widget in model.widgets">
+    <div ng-switch="widget.widgetType">
+        <div ng-switch-when="HEADING">
+            <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
         </div>
-
-        <a><span class="glyphicon glyphicon-menu-hamburger pull-right"></span></a>
-            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}">
-                <span class="glyphicon glyphicon-cog pull-right"></span></a>
-        </li>
-    </ul>
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'views/widget/templates/widget-image.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
         <div class="pull-right navbar-text">
-
-            <a href="#!/user/{{model_userId}}" class="tv-icon-padding">
+            <a href="#!/user/{{model.uid}}" class="cl-icon-padding">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
 

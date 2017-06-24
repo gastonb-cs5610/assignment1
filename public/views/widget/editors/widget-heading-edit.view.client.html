@@ -1,21 +1,28 @@
-<nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar">
+<nav id="profile_nav_bar" class="navbar navbar-fixed-top rt-navbar cl-web-navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-            <p class="navbar-text pull-left">
+            <div class="navbar-text pull-left">
                 <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget"
                    class="navbar-link rt-text-color-white rt-col-l-r-20">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-            </p>
+            </div>
             <a class="rt-text-color-white navbar-brand">
                 Edit Header Widget
+            </a>
+        </div>
+        <div class="pull-right">
+            <a ng-click="model.editWidget()" class="navbar-link navbar-text pull-right cl-icon-padding">
+                <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
     </div>
 </nav>
 <!--Body of the Page-->
 
-<div class="container rt-form-top-padding" ng-controller="EditWidgetController as model">
+<div class="container rt-form-top-padding">
+    <div ng-show="model.error" class="alert alert-danger rt-alert-padding" role="alert">{{model.error}}</div>
+
     <form>
         <div class="form-group">
             <label for="widget-heading-name">Name</label>
@@ -32,8 +39,7 @@
             <input ng-model="model.widget.size" type="number" class="form-control" id="widget-heading-size"
                    placeholder="Size">
         </div>
-        <a ng-click="model.deleteWidget" class="btn btn-danger btn-block" id="widget-heading-create-btn">Delete</a>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-heading-create-btn">Delete</a>
     </form>
-    <div ng-show="model.createError" class="alert alert-danger rt-alert-padding" role="alert">{{model.createError}}</div>
 </div>
 

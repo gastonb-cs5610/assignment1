@@ -12,36 +12,30 @@
             { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum", "name": "here"},
             { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
                 "url": "http://lorempixel.com/400/200/" , "name": "here", "text": "Lorem ipsum"},
-            { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>" , "name": "here"},
             { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum" , "name": "here"},
             { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-                "url": "https://youtu.be/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
-            { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "here"},
+                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
 
-            { "_id": "123", "widgetType": "HEADING", "pageId": "654", "size": 2, "text": "GIZMODO", "name": "here"},
-            { "_id": "234", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "345", "widgetType": "IMAGE", "pageId": "654", "width": "100%",
+            { "_id": "621", "widgetType": "HEADING", "pageId": "654", "size": 2, "text": "GIZMODO", "name": "here"},
+            { "_id": "777", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
+            { "_id": "666", "widgetType": "IMAGE", "pageId": "654", "width": "100%",
                 "url": "http://lorempixel.com/400/200/", "name": "here", "text": "Lorem ipsum"},
-            { "_id": "456", "widgetType": "HTML", "pageId": "654", "text": "<p>Lorem ipsum</p>", "name": "here"},
-            { "_id": "567", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "678", "widgetType": "YOUTUBE", "pageId": "654", "width": "100%",
-                "url": "https://youtu.be/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
-            { "_id": "789", "widgetType": "HTML", "pageId": "654", "text": "<p>Lorem ipsum</p>", "name": "here"},
+            { "_id": "555", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
+            { "_id": "444", "widgetType": "YOUTUBE", "pageId": "654", "width": "100%",
+                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
 
-            { "_id": "123", "widgetType": "HEADING", "pageId": "765", "size": 2, "text": "GIZMODO", "name": "here"},
-            { "_id": "234", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "345", "widgetType": "IMAGE", "pageId": "765", "width": "100%",
+            { "_id": "889", "widgetType": "HEADING", "pageId": "765", "size": 2, "text": "GIZMODO", "name": "here"},
+            { "_id": "112", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
+            { "_id": "442", "widgetType": "IMAGE", "pageId": "765", "width": "100%",
                 "url": "http://lorempixel.com/400/200/", "name": "here", "text": "Lorem ipsum" },
-            { "_id": "456", "widgetType": "HTML", "pageId": "765", "text": "<p>Lorem ipsum</p>", "name": "here"},
-            { "_id": "567", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "678", "widgetType": "YOUTUBE", "pageId": "765", "width": "100%",
-                "url": "https://youtu.be/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
-            { "_id": "789", "widgetType": "HTML", "pageId": "765", "text": "<p>Lorem ipsum</p>", "name": "here"}
+            { "_id": "111", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
+            { "_id": "132", "widgetType": "YOUTUBE", "pageId": "765", "width": "100%",
+                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"}
 
         ];
 
         var createWidgetMap = {
-            'HEADER': createHeaderWidget,
+            'HEADING': createHeaderWidget,
             'IMAGE': createImageWidget,
             'YOUTUBE': createYouTubeWidget,
             'HTML': createHTMLWidget,
@@ -78,7 +72,7 @@
         function createHeaderWidget(widgetId, pageId, widget) {
             return {
                 _id: widgetId,
-                widgetType: 'HEADER',
+                widgetType: 'HEADING',
                 pageId: pageId,
                 size: widget.size,
                 name: widget.name,
@@ -153,6 +147,7 @@
             var newWidgetId = getNextId();
             var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
             widgets.push(newWidget);
+            return newWidgetId;
         }
 
         function findWidgetsByPageId(pageId) {
@@ -181,6 +176,7 @@
             if (oldWidget.widgetType != widget.widgetType) {
                 return;
             }
+            console.log(index);
             Object.keys(widget).forEach(function (property) {
                 if (property === '_id' || property === 'widgetType' || property === 'pageId') {
                     return;
@@ -189,6 +185,7 @@
                     oldWidget[property] = widget[property];
                 }
             });
+
         }
 
         function deleteWidget(widgetId) {

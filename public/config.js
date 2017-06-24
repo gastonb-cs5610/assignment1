@@ -3,13 +3,22 @@
         .module("WebAppMaker")
         .config(configuration);
 
-    function configuration($routeProvider) {
+
+    function configuration($routeProvider, $sceDelegateProvider) {
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+            'self',
+            '*://www.youtube.com/**'
+        ]);
+
         $routeProvider
         /*            .when('/', {
          templateUrl : "/views/user/login.view.client.html",
          controllers: "LoginController",
          controllerAs: "model"
          })*/
+        // allow youtube through
+
             .when('/register', {
                 templateUrl: "views/user/register.view.client.html",
                 controller: "RegisterController",
@@ -62,11 +71,6 @@
             })
             .when('/user/:uid/website/:wid/page/:pid/widget/new', {
                 templateUrl: "views/widget/templates/widget-chooser.view.client.html",
-                controller: "NewWidgetController",
-                controllerAs: "model"
-            })
-            .when('/user/:uid/website/:wid/page/:pid/widget/create/:wtype', {
-                templateUrl: "views/widget/widget-new.view.client.html",
                 controller: "CreateWidgetController",
                 controllerAs: "model"
             })
