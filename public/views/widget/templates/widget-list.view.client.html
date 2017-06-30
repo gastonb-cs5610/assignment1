@@ -20,7 +20,7 @@
 </nav>
 
 
-<div class="container" ng-repeat="widget in model.widgets">
+<div class="container-fluid" ng-repeat="widget in model.widgets">
     <div ng-switch="widget.widgetType">
         <div ng-switch-when="HEADING">
             <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>

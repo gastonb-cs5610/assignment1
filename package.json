@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/gastonb-cs5610/assignment1#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "body-parser": "^1.15.0"
+
   }
 }
