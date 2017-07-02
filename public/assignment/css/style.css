@@ -24,14 +24,29 @@ a:hover {
     padding-bottom: 10%;
 }
 
-.cl-top-widget {
-    margin-top: 70px;
-}
+.cl-widget {
 
+
+}
 
 .cl-web-navbar {
-    background-color: #a7aeb7;
+    background-color: #53b7ab;
 }
+
+.cl-navbar-text {
+    position: absolute;
+    font-weight: bold;
+    padding-left: 0px;
+    color: #5effa4;
+}
+
+
+.cl-icon-navbar {
+    color: #5effa4;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 
 .cl-text-white {
     color: #fff;
@@ -77,6 +92,18 @@ a:hover {
     margin-bottom: 0px;
 }
 
+.cl-widget-heading > h1 {
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom:0px;
+}
+.cl-widget-heading > h2 {
+    font-size: 30px;
+    margin-top: 0px;
+    margin-bottom:0px;
+}
+
+
 .cl-widget-paragraph {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -95,11 +122,18 @@ a:hover {
     position: absolute;
 }
 
+.cl-icon-page {
+    color: #7dc2ff;
+
+}
+
 .cl-widget-list-icons {
-    top: 0px;
+    position: relative;
+    float: right;
+    top: 17px;
     right: 5px;
     z-index: 10;
-    background-color: rgba(251, 248, 255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .cl-zero-right-padding {

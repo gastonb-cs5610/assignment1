@@ -1,19 +1,18 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar  navbar-fixed-top cl-web-navbar">
     <div class="container-fluid row">
         <div class="navbar-text pull-left">
-            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="cl-text-black cl-icon-padding">
-          <span class="glyphicon glyphicon-chevron-left">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page">
+          <span class="glyphicon glyphicon-chevron-left cl-icon-navbar">
           </span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new"
-               class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-plus">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new">
+          <span class="glyphicon glyphicon-plus cl-icon-navbar">
           </span>
             </a>
         </div>
-        <a class="navbar-brand cl-text-white cl-text-bold">
+        <a class="cl-navbar-text navbar-brand">
             Widgets
         </a>
     </div>
@@ -21,7 +20,7 @@
 
 
 <div class="container-fluid" ng-repeat="widget in model.widgets">
-    <div ng-switch="widget.widgetType">
+    <div class="cl-widget cl-widget-list-item" ng-switch="widget.widgetType">
         <div ng-switch-when="HEADING">
             <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
         </div>
@@ -37,11 +36,11 @@
 </div>
 
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-default navbar-fixed-bottom cl-web-navbar">
     <div class="container-fluid row">
         <div class="pull-right navbar-text">
             <a href="#!/user/{{model.uid}}" class="cl-icon-padding">
-                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-user cl-icon-navbar"></span>
             </a>
 
         </div>

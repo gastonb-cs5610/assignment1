@@ -3,8 +3,8 @@
         <a class="navbar-brand cl-navbar-text" href="#">
             Profile
         </a>
-        <a ng-click="model.updateUser()" class="navbar-link navbar-text pull-right cl-navbar-text">
-            <span class="glyphicon glyphicon-ok"></span>
+        <a ng-click="model.updateUser()" class="navbar-link navbar-text pull-right">
+            <span class="glyphicon glyphicon-ok cl-icon-navbar"></span>
         </a>
     </div>
 </nav>
@@ -27,9 +27,10 @@
 </div>
 
 <nav class="navbar navbar-fixed-bottom cl-web-navbar">
-    <div class="container-fuild">
-        <a href="#!/user/{{model.user._id}}" class="navbar-link navbar-text pull-right cl-navbar-text cl-icon-padding">
-            <span class="glyphicon glyphicon-user"></span>
+    <div class="container-fluid">
+        <a href="#!/user/{{model.user._id}}" class="navbar-link navbar-text pull-right">
+            <span class="glyphicon glyphicon-user cl-icon-navbar"></span>
         </a>
+
     </div>
 </nav>

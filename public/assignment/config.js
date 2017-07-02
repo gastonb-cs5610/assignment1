@@ -5,6 +5,7 @@
 
 
     function configuration($routeProvider, $sceDelegateProvider) {
+        console.log("confug")
 
         $sceDelegateProvider.resourceUrlWhitelist([
             'self',
@@ -12,13 +13,6 @@
         ]);
 
         $routeProvider
-        /*            .when('/', {
-         templateUrl : "/views/user/login.view.client.html",
-         controllers: "LoginController",
-         controllerAs: "model"
-         })*/
-        // allow youtube through
-
             .when('/register', {
                 templateUrl: "views/user/register.view.client.html",
                 controller: "RegisterController",
@@ -80,12 +74,14 @@
                 controllerAs: "model"
             })
             .when('/', {
-                templateUrl: "/views/user/login.view.client.html",
+                templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo: "/"
+                templateUrl: "views/user/login.view.client.html",
+                controller: "LoginController",
+                controllerAs: "model"
             });
     }
 })();
