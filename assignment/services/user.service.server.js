@@ -33,14 +33,31 @@ var users = [
 app.get('/api/assignment/user', findAllUsers);
 app.get('/api/assignment/user/:userId', findUserById);
 
+app.put('/api/assignment/user/:userId', updateUser);
+
 
 app.post('/api/assignment/user', createUser);
 
-function createUser(req, res) {
+function updateUser(req, res) {
     var user = req.body;
+    for (u in users) {
+        if (parseInt(users[u]._id) === parseInt(req.params.userId)) {
+            users[u] = user;
+            res.sendStatus(200);
+            return;
+        }
+    }
+    res.sendStatus(404);
 
 }
 
+function createUser(req, res) {
+    console.log("HIIIIII");
+    var user = req.body;
+    user._id = getNextId();
+    users.push(user);
+    res.json(user);
+}
 
 
 function findAllUsers(req, res) {
@@ -48,11 +65,11 @@ function findAllUsers(req, res) {
     var password = req.query.password;
 
     if (username && password) {
-        console.log("serivce server");
         for (var u in users) {
             var user = users[u];
             if (user.username === username && user.password === password) {
                 res.json(user);
+                return;
             }
         }
         res.sendStatus(404);
@@ -72,8 +89,8 @@ function findAllUsers(req, res) {
 
 
 function findUserById(req, res) {
+
     var userId = req.params['userId'];
-    console.log(userId);
     for (u in users) {
         if (parseInt(users[u]._id) === parseInt(userId)) {
             res.send(users[u]);
@@ -83,3 +100,15 @@ function findUserById(req, res) {
     res.sendStatus(404);
 }
 
+function getNextId() {
+    function getMaxId(maxId, currentId) {
+        var current = parseInt(currentId._id);
+        if (maxId > current) {
+            return maxId;
+        } else {
+            return current + 1;
+        }
+    }
+
+    return users.reduce(getMaxId, 0).toString();
+}

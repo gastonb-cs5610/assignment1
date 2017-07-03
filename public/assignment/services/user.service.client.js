@@ -26,36 +26,14 @@
         };
         return services;
 
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-            return users.reduce(getMaxId, 0).toString();
-        }
 
         function createUser(user) {
             var url = "/api/assignment/user";
-            $http.post(url);
-
-
-            // var newUserId = getNextId();
-            //
-            // var newUser = {
-            //     _id: newUserId,
-            //     username: user.username,
-            //     password: user.password,
-            //     firstName: user.firstName,
-            //     lastName: user.lastName,
-            //     email: user.email
-            // };
-            //
-            // users.push(newUser);
-            // return newUser;
+            return $http.post(url, user)
+                .then(function (response) {
+                    return response.data;
+                    
+                });
         }
 
         function findUserById(userId) {
@@ -73,13 +51,6 @@
                 .then(function (response) {
                     return response.data;
                 });
-            // var user = users.find(function(user) {
-            //     return user.username == username;
-            // });
-            // if (typeof user === 'undefined') {
-            //     return null;
-            // }
-            // return user;
         }
 
         function findUserByCredentials(username, password) {
@@ -92,12 +63,28 @@
         }
 
         function updateUser(userId, user) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
+            console.log("1", userId, user);
 
-            users[index].firstName = user.firstName;
-            users[index].lastName = user.lastName;
-            users[index].email = user.email;
+
+            var url = "/api/assignment/user/" + userId;
+
+            console.log(url);
+
+
+            return $http.put(url, user)
+                .then(function (response) {
+                    return response.data;
+                });
+            // var oldUser = findUserById(userId);
+            // console.log(oldUser);
+            // var index = users.indexOf(oldUser);
+            //
+            // console.log(oldUser);
+            // console.log(index);
+            //
+            // users[index].firstName = user.firstName;
+            // users[index].lastName = user.lastName;
+            // users[index].email = user.email;
         }
 
         function deleteUser(userId) {

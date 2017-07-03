@@ -5,8 +5,6 @@
 
 
     function configuration($routeProvider, $sceDelegateProvider) {
-        console.log("confug")
-
         $sceDelegateProvider.resourceUrlWhitelist([
             'self',
             '*://www.youtube.com/**'
