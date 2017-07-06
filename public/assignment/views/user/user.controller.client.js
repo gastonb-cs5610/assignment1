@@ -22,10 +22,10 @@
                     .then(function (userCheck) {
                         if (userCheck) {
                             $location.url("/user/" + userCheck._id);
-                        } else {
-                            vm.error = "Unable to login";
                         }
-                    });
+                    }, function () {
+                        vm.error ="User not found.";
+                        });
             }
         }
 
@@ -47,7 +47,8 @@
                 return;
             }
 
-            UserService.findUserByUsername(mUser.username)
+            UserService
+                .findUserByUsername(mUser.username)
                 .then(function () {
                         vm.error = "Username already exists.";
                     }, function () {
@@ -69,23 +70,46 @@
         }
     }
 
-    function ProfileController($routeParams, $timeout, UserService) {
+    function ProfileController($routeParams, $timeout, UserService, $location) {
         var vm = this;
         vm.userId = $routeParams["uid"];
 
-        UserService
-            .findUserById(vm.userId)
-            .then(renderUser);
+        function init () {
+
+            UserService
+                .findUserById(vm.userId)
+                .then(renderUser, unableToFind);
+        }
+
+        init();
+
+        function unableToFind() {
+            vm.error = "Unable to find user";
+        }
 
         function renderUser(user) {
             vm.user = user;
         }
 
         vm.updateUser = updateUser;
+        vm.deleteUser =deleteUser;
+
+        function deleteUser(user) {
+            UserService
+                .deleteUser(user._id)
+                .then(function () {
+                    $location.url('/login')
+                }, function() {
+                    model.error= "Unable to delete user";
+
+                    $timeout(function () {
+                        vm.error = null;
+                    }, 3000);
+                });
+        }
 
         function updateUser(user) {
 
-            console.log("1");
             UserService
                 .updateUser(user._id, user)
                 .then(function() {
@@ -95,12 +119,10 @@
                         vm.updated = null;
                     }, 3000);
 
+                }, function() {
+                    vm.updated = "Profile was unable to be updated.";
                 });
 
-
-            $timeout(function () {
-                vm.updated = null;
-            }, 3000);
         }
 
 

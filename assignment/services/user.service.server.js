@@ -1,4 +1,4 @@
-var app = require('../../express');
+const app = require('../../express');
 
 var users = [
     {
@@ -35,24 +35,40 @@ app.get('/api/assignment/user/:userId', findUserById);
 
 app.put('/api/assignment/user/:userId', updateUser);
 
+app.delete('/api/assignment/user/:userId', deleteUser);
 
 app.post('/api/assignment/user', createUser);
 
-function updateUser(req, res) {
-    var user = req.body;
-    for (u in users) {
-        if (parseInt(users[u]._id) === parseInt(req.params.userId)) {
-            users[u] = user;
+
+function deleteUser(req, res) {
+    var userId = req.params.userId;
+
+    for (var u in users) {
+        if (users[u]._id === userId) {
+            users.splice(u, 1);
             res.sendStatus(200);
             return;
         }
     }
     res.sendStatus(404);
+}
 
+
+function updateUser(req, res) {
+    var user = req.body;
+    console.log("THIS USER:", user)
+    for (u in users) {
+        if (parseInt(users[u]._id) === parseInt(req.params.userId)) {
+            users[u] = user;
+            res.sendStatus(200);
+            console.log(users);
+            return;
+        }
+    }
+    res.sendStatus(404);
 }
 
 function createUser(req, res) {
-    console.log("HIIIIII");
     var user = req.body;
     user._id = getNextId();
     users.push(user);
@@ -61,6 +77,7 @@ function createUser(req, res) {
 
 
 function findAllUsers(req, res) {
+
     var username = req.query.username;
     var password = req.query.password;
 
@@ -89,8 +106,11 @@ function findAllUsers(req, res) {
 
 
 function findUserById(req, res) {
+    console.log("umm in server");
 
     var userId = req.params['userId'];
+    console.log("umm in server", userId);
+
     for (u in users) {
         if (parseInt(users[u]._id) === parseInt(userId)) {
             res.send(users[u]);

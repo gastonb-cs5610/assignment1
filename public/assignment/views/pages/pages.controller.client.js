@@ -9,10 +9,18 @@
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
+
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService
+                .findPageByWebsiteId(vm.websiteId)
+                .then(renderPage);
         }
+
         init();
+
+        function renderPage(pages) {
+            vm.pages = pages;
+        }
     }
 
     function NewPageController($routeParams, $location, PageService) {
@@ -24,6 +32,7 @@
 
         function createPage(newPage) {
 
+            console.log("controller");
 
             if (!newPage || newPage.title === undefined || newPage.title === null || newPage.title === ""
                 || newPage.name === name || newPage.name === "" || newPage.name === null) {
@@ -32,9 +41,19 @@
                 return;
             }
 
-            PageService.createPage(vm.websiteId, newPage);
+            var newPageInfo = {
+                title: newPage.title,
+                name: newPage.name,
+                websiteId: vm.websiteId
+            };
 
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService
+                .createPage(vm.websiteId, newPageInfo)
+                .then(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+
+                });
+
         }
 
 
@@ -49,9 +68,16 @@
 
 
         function init() {
-            vm.page = angular.copy(PageService.findPageById(vm.pageId));
+
+            PageService
+                .findPageById(vm.pageId)
+                .then(renderPage);
         }
         init();
+
+        function renderPage(page) {
+            vm.page = page;
+        }
 
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
@@ -64,21 +90,32 @@
                 title: vm.page.title
 
             }
-            console.log(vm.page, "updated:", updated_page);
 
             if (!updated_page || updated_page.title === undefined || updated_page.title === null || updated_page.title === ""
                 || updated_page.name === name || updated_page.name === "" || updated_page.name === null) {
                 vm.error = "Please enter the required fields.";
                 return;
             }
-            PageService.updatePage($routeParams.pid, updated_page);
 
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService
+                .updatePage($routeParams.pid, updated_page)
+                .then(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                });
+
         }
 
-        function deletePage(wid) {
-            console.log(wid);
-            PageService.deletePage(wid)
+        function deletePage(pid) {
+            PageService
+                .deletePage(pid)
+                .then(function () {
+                    $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + "/page");
+                }, function() {
+                    model.error= "Unable to delete page";
+                    $timeout(function () {
+                        vm.updated = null;
+                    }, 3000);
+                });
         }
 
     }

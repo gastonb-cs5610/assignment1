@@ -32,12 +32,12 @@
             return $http.post(url, user)
                 .then(function (response) {
                     return response.data;
-                    
                 });
         }
 
         function findUserById(userId) {
             var url = "/api/assignment/user/" + userId;
+            console.log(url);
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
@@ -63,34 +63,24 @@
         }
 
         function updateUser(userId, user) {
-            console.log("1", userId, user);
-
-
             var url = "/api/assignment/user/" + userId;
-
-            console.log(url);
-
-
             return $http.put(url, user)
                 .then(function (response) {
                     return response.data;
                 });
-            // var oldUser = findUserById(userId);
-            // console.log(oldUser);
-            // var index = users.indexOf(oldUser);
-            //
-            // console.log(oldUser);
-            // console.log(index);
-            //
-            // users[index].firstName = user.firstName;
-            // users[index].lastName = user.lastName;
-            // users[index].email = user.email;
+
         }
 
         function deleteUser(userId) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users.splice(index);
+            var url = "/api/assignment/user/" + userId;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users.splice(index);
         }
     }
 })();

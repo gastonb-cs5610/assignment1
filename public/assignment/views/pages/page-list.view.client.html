@@ -1,27 +1,18 @@
-
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid row">
-
-        <div class="navbar-text pull-left">
-            <a href="#!/user/{{model.userId}}/website" class="cl-text-black cl-icon-padding">
-          <span class="glyphicon glyphicon-chevron-left cl-icon-navbar">
-          </span>
-            </a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="cl-icon-padding cl-text-black">
-          <span class="glyphicon glyphicon-plus cl-icon-navbar">
-          </span>
-            </a>
-        </div>
+<nav class="navbar narbar-default navbar-fixed-top cl-web-navbar">
+    <div class="container-fluid">
+        <a href="#!/user/{{model.userId}}/website" class="navbar-link navbar-text pull-left cl-icon-navbar">
+            <span class="glyphicon glyphicon-chevron-left "></span>
+        </a>
         <a class="navbar-brand cl-navbar-text">
             Pages
+        </a>
+        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="navbar-link navbar-text pull-right cl-icon-navbar">
+            <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
 </nav>
 
-
-<div class="container-fluid">
+<div class="container">
     <ul class="list-group cl-list-group-borderless">
         <li ng-repeat="page in model.pages" class="list-group-item cl-list-item-borderless">
             <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
@@ -30,14 +21,11 @@
     </ul>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid row">
-        <div class="pull-right navbar-text">
 
-            <a href="#!/user/{{model.userId}} " class="tv-icon-padding cl-text-black">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-
-        </div>
+<nav class="navbar navbar-fixed-bottom  cl-web-navbar">
+    <div class="container-fuild">
+        <a href="#!/user/{{model.userId}}" class="navbar-link navbar-text pull-right cl-icon-navbar cl-icon-padding">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
     </div>
 </nav>

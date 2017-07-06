@@ -87,6 +87,12 @@ a:hover {
     height: 100%;
 }
 
+.cl-member-noEdit {
+    text-indent: 6px;
+    font-weight: 500;
+    color: grey;
+}
+
 .cl-widget-heading {
     margin-top: 0px;
     margin-bottom: 0px;

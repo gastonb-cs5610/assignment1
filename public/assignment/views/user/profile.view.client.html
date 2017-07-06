@@ -13,7 +13,7 @@
     <div ng-show="model.updated" class="alert alert-success" role="alert">{{model.updated}}</div>
     <form class="cl-form-bottom-padding">
         <label for="username">Username</label>
-        <input ng-model="model.user.username" type="text" class="form-control" placeholder="Username" id="username" required>
+        <p ng-model="model.user.username" type="text" class = cl-member-noEdit placeholder="Username" id="username" required>{{model.user.username}}</p>
         <label for="email">Email</label>
         <input ng-model="model.user.email" type="email" class="form-control" placeholder="add email" id="email" required>
         <label for="fName">First Name</label>
@@ -22,8 +22,12 @@
         <input ng-model="model.user.lastName" type="text" class="form-control" placeholder="last name" id="lName" required>
     </form>
 
-    <a href="#!/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
-    <a href="#!/login" class="btn btn-danger btn-block">Logout</a>
+    <a href="#!/user/{{model.user._id}}/website"
+       class="btn btn-primary btn-block">Websites</a>
+    <a ng-click = "model.deleteUser(model.user)"
+       class="btn btn-danger btn-block">Delete Account</a>
+    <a href="#!/login"
+       class="btn btn-danger btn-block">Logout</a>
 </div>
 
 <nav class="navbar navbar-fixed-bottom cl-web-navbar">
