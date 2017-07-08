@@ -34,17 +34,10 @@
 
         function createPage(websiteId, page) {
 
-            console.log("client");
-
-
             var url = "/api/assignment/website/" + websiteId + "/page";
-
-            console.log(url);
 
             return $http.post(url, page)
                 .then(function (response) {
-                    console.log("back");
-
                     return response.data;
                 });
         }

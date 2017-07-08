@@ -31,7 +31,7 @@
         console.log('hey');
 
         function createWidget(widgetType) {
-            console.log('hey');
+
             var newWidget = {
                 name: vm.widgetName,
                 text: vm.widgetText,
@@ -40,8 +40,11 @@
                 width: vm.widgetWidth,
                 url: vm.widgetUrl
             };
-            var newId = WidgetService.createWidget(vm.pid, newWidget);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + newId);
+            WidgetService
+                .createWidget(vm.pid, newWidget)
+                .then(function () {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + newId);
+                });
         }
     }
 
