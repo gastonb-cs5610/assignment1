@@ -1,0 +1,19 @@
+<div ng-switch="model.widgetType">
+    <div ng-switch-when="HEADING">
+        <ng-include src="'views/widget/editors/widget-heading-create.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="IMAGE">
+        <ng-include src="'views/widget/editors/widget-image-create.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="YOUTUBE">
+        <ng-include src="'views/widget/editors/widget-youtube-create.view.client.html'"></ng-include>
+    </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom  cl-web-navbar">
+    <div class="container-fuild">
+        <a href="#!/user/{{model.uid}}" class="navbar-link navbar-text pull-right cl-navbar-text cl-icon-padding">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+</nav>

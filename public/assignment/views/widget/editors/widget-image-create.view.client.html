@@ -5,13 +5,14 @@
             <span class="glyphicon glyphicon-chevron-left "></span>
         </a>
         <a class="navbar-brand cl-navbar-text">
-            Edit Image Widget
+            Create Image Widget
         </a>
-        <a ng-click="model.editWidget()"  class="navbar-link navbar-text pull-right cl-icon-navbar">
+        <a ng-click="model.createWidget()"  class="navbar-link navbar-text pull-right cl-icon-navbar">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
 </nav>
+
 <!--Body of the Page-->
 <div class="container">
     <div ng-show="model.error" class="alert alert-danger rt-alert-padding" role="alert">{{model.error}}</div>
@@ -19,17 +20,17 @@
     <form>
         <div class="form-group">
             <label for="widget-image-name">Name</label>
-            <input ng-model="model.widget.name" type="text" class="form-control" id="widget-image-name"
+            <input ng-model="model.name" type="text" class="form-control" id="widget-image-name"
                    placeholder="Name">
         </div>
         <div class="form-group">
             <label for="widget-image-text">Text</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="widget-image-text"
+            <input ng-model="model.text" type="text" class="form-control" id="widget-image-text"
                    placeholder="Text">
         </div>
         <div class="form-group">
             <label for="widget-image-url">URL</label>
-            <input ng-model="model.widget.url" type="text" class="form-control" id="widget-image-url"
+            <input ng-model="model.url" type="text" class="form-control" id="widget-image-url"
                    placeholder="http://www.example.com">
         </div>
         <div class="form-group">
@@ -37,19 +38,12 @@
             <input ng-model="model.widget.width" type="text" class="form-control" id="widget-image-width"
                    placeholder="100%">
         </div>
-
-
-        <form action="/api/upload"   method="post" enctype="multipart/form-data">
-            <input  name="myFile"    type="file" class="form-control"/>
-            <input  name="width"     value="{{model.widget.width}}" style="display: none"/>
-            <input  name="widgetId"  value="{{model.widget._id}}"   style="display: none"/>
-            <input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
-            <input  name="pageId"    value="{{model.pageId}}"   style="display: none"/>
-            <input  name="widgetId"  value="{{model.widget._id}}"   style="display: none"/>
+        <div class="form-group">
+            <label for="widget-image-file-chooser">Upload</label>
+            <input type="file" id="widget-image-file-chooser">
             <p class="help-block">Upload the image from your device.</p>
-            <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
-        </form>
-
+        </div>
+        <a id="widget-image-upload-btn" class="btn btn-primary btn-block">Upload Image</a>
         <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-heading-create-btn">Delete</a>
     </form>
 </div>

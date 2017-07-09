@@ -5,13 +5,14 @@
             <span class="glyphicon glyphicon-chevron-left "></span>
         </a>
         <a class="navbar-brand cl-navbar-text">
-            Edit Header Widget
+            Create Header Widget
         </a>
-        <a ng-click="model.editWidget()"  class="navbar-link navbar-text pull-right cl-icon-navbar">
+        <a ng-click="model.createWidget()"  class="navbar-link navbar-text pull-right cl-icon-navbar">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
 </nav>
+
 <!--Body of the Page-->
 
 <div class="container rt-form-top-padding">
@@ -20,17 +21,17 @@
     <form>
         <div class="form-group">
             <label for="widget-heading-name">Name</label>
-            <input ng-model="model.widget.name" type="text" class="form-control" id="widget-heading-name"
+            <input ng-model="model.name" type="text" class="form-control" id="widget-heading-name"
                    placeholder="Name">
         </div>
         <div class="form-group">
             <label for="widget-heading-text">Text</label>
-            <input ng-model="model.widget.text" type="text" class="form-control" id="widget-heading-text"
+            <input ng-model="model.text" type="text" class="form-control" id="widget-heading-text"
                    placeholder="Text">
         </div>
         <div class="form-group">
             <label for="widget-heading-size">Size</label>
-            <input ng-model="model.widget.size" type="number" class="form-control" id="widget-heading-size"
+            <input ng-model="model.size" type="number" class="form-control" id="widget-heading-size"
                    placeholder="Size">
         </div>
         <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-heading-create-btn">Delete</a>

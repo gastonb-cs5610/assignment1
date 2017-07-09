@@ -6,7 +6,7 @@
         .module("WebAppMaker")
         .factory('WidgetService', WidgetService);
 
-    function WidgetService() {
+    function WidgetService($http) {
         var widgets = [
             { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO", "name": "here"},
             { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum", "name": "here"},
@@ -53,23 +53,13 @@
             'findWidgetById': findWidgetById,
             'updateWidget': updateWidget,
             'deleteWidget': deleteWidget,
-            'deleteWidgetsByPage': deleteWidgetsByPage
+            //'deleteWidgetsByPage': deleteWidgetsByPage
         };
         return api;
 
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-            return widgets.reduce(getMaxId, 0).toString();
-        }
 
-        function createHeaderWidget(widgetId, pageId, widget) {
+        function createHeaderWidget(pageId, widget) {
+            console.log(widget.size)
             return {
                 widgetType: 'HEADING',
                 pageId: pageId,
@@ -82,7 +72,7 @@
         function createLabelWidget(widgetId, pageId, widget) {
         }
 
-        function createHTMLWidget(widgetId, pageId, widget) {
+        function createHTMLWidget(pageId, widget) {
             return {
                 widgetType: 'HTML',
                 pageId: pageId,
@@ -149,56 +139,51 @@
         }
 
         function findWidgetsByPageId(pageId) {
-            results = [];
-            function filterByPageId(widget) {
-                return widget.pageId === pageId;
-            }
+            var url = "/api/assignment/page/" + pageId + "/widget";
 
-            results = widgets.filter(filterByPageId);
-            return results;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findWidgetById(widgetId) {
-            for (wid in widgets) {
-                var widget = widgets[wid];
-                if (widget._id === widgetId) {
-                    return widget;
-                }
-            }
-            return null;
+            var url = "/api/assignment/widget/" + widgetId;
+
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function updateWidget(widgetId, widget) {
-            var oldWidget = findWidgetById(widgetId);
-            var index = widgets.indexOf(oldWidget);
-            if (oldWidget.widgetType != widget.widgetType) {
-                return;
-            }
-            console.log(index);
-            Object.keys(widget).forEach(function (property) {
-                if (property === '_id' || property === 'widgetType' || property === 'pageId') {
-                    return;
-                }
-                if (oldWidget.hasOwnProperty(property)) {
-                    oldWidget[property] = widget[property];
-                }
-            });
+            var url = "/api/assignment/widget/" + widgetId;
+
+            return $http.put(url, widget)
+                .then(function (response) {
+                    return response.data;
+                }, function (response) {
+                    vm.error = "Something went wrong";
+                });
 
         }
 
         function deleteWidget(widgetId) {
-            var oldWidget = findWidgetById(widgetId);
-            var index = widgets.indexOf(oldWidget);
-            widgets.splice(index, 1);
+            var url = "/api/assignment/widget/" + widgetId;
+
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
-        function deleteWidgetsByPage(pageId) {
-            for (wid in widgets) {
-                widget = widgets[wid];
-                if (widget.pageId === pageId) {
-                    deleteWidget(widget._id);
-                }
-            }
-        }
+        // function deleteWidgetsByPage(pageId) {
+        //     for (wid in widgets) {
+        //         widget = widgets[wid];
+        //         if (widget.pageId === pageId) {
+        //             deleteWidget(widget._id);
+        //         }
+        //     }
+        // }
     }
 })();

@@ -18,21 +18,20 @@
     </div>
 </nav>
 
-
-<div class="container-fluid" ng-repeat="widget in model.widgets">
-    <div class="cl-widget cl-widget-list-item" ng-switch="widget.widgetType">
-        <div ng-switch-when="HEADING">
-            <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
-        </div>
-        <div ng-switch-when="IMAGE">
-            <ng-include src="'views/widget/templates/widget-image.view.client.html'"></ng-include>
-        </div>
-        <div ng-switch-when="YOUTUBE">
-            <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
+<div id=sortable>
+    <div class="container-fluid" ng-repeat="widget in model.widgets">
+        <div class="cl-widget cl-widget-list-item" ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADING">
+                <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <ng-include src="'views/widget/templates/widget-image.view.client.html'"></ng-include>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 
 

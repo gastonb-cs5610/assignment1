@@ -70,7 +70,6 @@ function findWebsitesByUser(req, res) {
 }
 
 function createWebsite(req, res) {
-
     var website = req.body;
     website._id = getNextId();
     websites.push(website);
