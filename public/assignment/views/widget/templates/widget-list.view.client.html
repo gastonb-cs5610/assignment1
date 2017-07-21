@@ -18,7 +18,7 @@
     </div>
 </nav>
 
-<div id=sortable>
+<div id="sortable" wbdv-sortable callback="model.callBack(start, end)">
     <div class="container-fluid" ng-repeat="widget in model.widgets">
         <div class="cl-widget cl-widget-list-item" ng-switch="widget.widgetType">
             <div ng-switch-when="HEADING">

@@ -41,20 +41,38 @@ app.put('/api/assignment/widget/:widgetId', updateWidget);
 app.delete('/api/assignment/widget/:widgetId', deleteWidget);
 
 
-app.post ('/api/assignment/upload', upload.single('myFile'), uploadImage);
+app.post ('/api/assignment/upload',  upload.single('myFile'), uploadImage);
 
+app.post('/api/assignment/moveWidget', moveWidget);
 
+function moveWidget(req, res) {
+    // get all widgets for page
+
+    // order widgets by position
+    var toMoveWidget = req.wid;
+    // splice widget toMoveWidget at start
+    // figure out index to splice into
+    // set pos to current index
+    // save
+}
 
 function uploadImage(req, res) {
-    
-    var widgetId      = req.body.widgetId;
-    var width         = req.body.width;
-    var myFile        = req.file;
 
-    var pageId = req.body.pageId;
-    var userId = req.body.userId;
-    var websiteId = req.body.websiteId;
-    var pageId = req.body.pageId;
+    console.log("inside");
+
+    //var widgetId      = req.body.widgetId;
+    var widget      = req.body.widget;
+
+
+    console.log("yoyo");
+
+    // var width         = req.body.width;
+    var myFile        = req.file;
+    //
+    // var pageId = req.body.pageId;
+    // var userId = req.body.userId;
+    // var websiteId = req.body.websiteId;
+    // var pageId = req.body.pageId;
 
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
@@ -63,11 +81,13 @@ function uploadImage(req, res) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    widget = getWidgetById(widgetId);
+    //widget = getWidgetById(widgetId);
     widget.url = '/assignment/uploads/'+filename;
 
-    var callbackUrl   = "/assignment/#/user/"+userId+"/website/"+websiteId+"/widget";
-    res.redirect(callbackUrl);
+
+
+    //var callbackUrl   = "/assignment/#/user/"+userId+"/website/"+websiteId+"/widget";
+    res.json(widget);
 }
 
 function updateWidget(req, res) {
@@ -126,7 +146,7 @@ function findWidgetById(req, res) {
     res.sendStatus(404);
 }
 
-function findWidgetById2(req, res) {
+function findWidgetById(wid) {
 
     console.log("in")
     var widgetId = req.params['widgetId'];
@@ -150,6 +170,8 @@ function findWigetsByPage(req, res) {
             result.push(widget);
         }
     }
+
+    //sort by position
 
     res.json(result);
 }

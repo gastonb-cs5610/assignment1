@@ -14,6 +14,8 @@
 
         vm.trustSrc = trustSrc;
 
+        vm.callBack = callBack;
+
         console.log(vm.uid, "ID");
 
         function init() {
@@ -32,9 +34,15 @@
             return $sce.trustAsResourceUrl(src);
         }
 
-        $(function() {
-            $( "#sortable" ).sortable();
-        });
+        function callBack(start, end) {
+            console.log(start);
+            console.log(end);
+            var wid = vm.widgets[start]._id;
+        }
+
+        // $(function() {
+        //     $( "#sortable" ).sortable();
+        // });
 
     }
 

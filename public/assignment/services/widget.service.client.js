@@ -93,7 +93,7 @@
 
         }
 
-        function createImageWidget(widgetId, pageId, widget) {
+        function createImageWidget(pageId, widget) {
             return {
                 widgetType: 'IMAGE',
                 pageId: pageId,
