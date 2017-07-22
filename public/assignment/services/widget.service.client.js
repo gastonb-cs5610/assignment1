@@ -59,7 +59,6 @@
 
 
         function createHeaderWidget(pageId, widget) {
-            console.log(widget.size)
             return {
                 widgetType: 'HEADING',
                 pageId: pageId,
@@ -105,7 +104,9 @@
 
         }
 
-        function createYouTubeWidget(widgetId, pageId, widget) {
+        function createYouTubeWidget(pageId, widget) {
+            console.log("createYoutube", widget);
+
             return {
                 widgetType: 'YOUTUBE',
                 pageId: pageId,
@@ -130,10 +131,13 @@
          * Standard CRUD
          */
         function createWidget(pageId, widget) {
+            console.log("widget:", widget);
             var newWidget = createWidgetMap[widget.widgetType](pageId, widget);
             var url = "/api/assignment/page/" + pageId + "/widget";
             return $http.post(url, newWidget)
                 .then(function (response) {
+                    console.log("widget create");
+
                     return response.data;
                 });
         }
@@ -149,6 +153,7 @@
 
         function findWidgetById(widgetId) {
             var url = "/api/assignment/widget/" + widgetId;
+            console.log("going");
 
             return $http.get(url)
                 .then(function (response) {

@@ -60,19 +60,16 @@ function uploadImage(req, res) {
 
     console.log("inside");
 
-    //var widgetId      = req.body.widgetId;
-    var widget      = req.body.widget;
+    var widgetId      = req.body.widgetId;
 
 
-    console.log("yoyo");
 
-    // var width         = req.body.width;
+    var width         = req.body.width;
     var myFile        = req.file;
-    //
-    // var pageId = req.body.pageId;
-    // var userId = req.body.userId;
-    // var websiteId = req.body.websiteId;
-    // var pageId = req.body.pageId;
+
+    var pageId = req.body.pageId;
+    var userId = req.body.userId;
+    var websiteId = req.body.websiteId;
 
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
@@ -81,19 +78,26 @@ function uploadImage(req, res) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    //widget = getWidgetById(widgetId);
+
+    widget = findItemById(widgetId);
+    console.log("it happened", widget);
     widget.url = '/assignment/uploads/'+filename;
 
 
+    console.log(userId, websiteId, pageId, widgetId);
 
-    //var callbackUrl   = "/assignment/#/user/"+userId+"/website/"+websiteId+"/widget";
-    res.json(widget);
+    var callbackUrl   = "/assignment/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
+    console.log(callbackUrl)
+    res.redirect(callbackUrl);
+
 }
 
 function updateWidget(req, res) {
     console.log("IN HERE")
     var widget = req.body;
     var oldWidget;
+
+    console.log("body", req.body);
 
     for (w in widgets) {
         if (parseInt(widgets[w]._id) === parseInt(req.params.widgetId)) {
@@ -115,9 +119,12 @@ function updateWidget(req, res) {
             return;
         }
         if (oldWidget.hasOwnProperty(property)) {
+            (console.log("hi"));
             oldWidget[property] = widget[property];
         }
     });
+
+
     res.sendStatus(200);
 }
 
@@ -146,20 +153,6 @@ function findWidgetById(req, res) {
     res.sendStatus(404);
 }
 
-function findWidgetById(wid) {
-
-    console.log("in")
-    var widgetId = req.params['widgetId'];
-
-    for (w in widgets) {
-        if (parseInt(widgets[w]._id) === parseInt(widgetId)) {
-            res.send(widgets[w]);
-            return;
-        }
-    }
-
-    res.sendStatus(404);
-}
 
 function findWigetsByPage(req, res) {
     var result = [];
@@ -177,13 +170,12 @@ function findWigetsByPage(req, res) {
 }
 
 function createWidget(req, res) {
-    console.log("HERE");
     var widget = req.body;
 
     widget._id = getNextId();
     widgets.push(widget);
 
-    res.sendStatus(200);
+    res.json(widget);
 }
 
 function getNextId() {
@@ -196,4 +188,18 @@ function getNextId() {
         }
     }
     return widgets.reduce(getMaxId, 0).toString();
+}
+
+
+function findItemById(id) {
+    console.log("inside again");
+    console.log(id);
+
+    for (i in widgets) {
+        if (parseInt(widgets[i]._id) === parseInt(id)) {
+            return widgets[i];
+        }
+    }
+
+    return undefined;
 }

@@ -2,7 +2,6 @@
     angular
         .module("WebAppMaker")
         .controller("WidgetListController", WidgetListController)
-        .controller("CreateWidgetController", CreateWidgetController)
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
@@ -40,10 +39,6 @@
             var wid = vm.widgets[start]._id;
         }
 
-        // $(function() {
-        //     $( "#sortable" ).sortable();
-        // });
-
     }
 
     function NewWidgetController($routeParams, $location, WidgetService) {
@@ -52,15 +47,6 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
 
-    }
-
-    function CreateWidgetController($routeParams, $location, WidgetService) {
-        var vm = this;
-        vm.uid = $routeParams.uid;
-
-        vm.wid = $routeParams.wid;
-        vm.pid = $routeParams.pid;
-        vm.widgetType = $routeParams.wtype;
         vm.createWidget = createWidget;
         vm.createError = null;
 
@@ -68,26 +54,30 @@
         function createWidget(widgetType) {
 
             var newWidget = {
-                name: vm.name,
-                text: vm.text,
-                widgetType: vm.widgetType,
-                pageId: vm.pid,
-                size: vm.size,
-                width: vm.width,
-                url: vm.url
+                name: "",
+                text: "",
+                widgetType: widgetType,
+                pageId: "",
+                size: "",
+                width: "",
+                url: ""
             };
 
 
+            console.log("controller", newWidget);
+
             WidgetService
                 .createWidget(vm.pid, newWidget)
-                .then(function () {
-                    console.log(newWidget);
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/");
+                .then(function (widget) {
+                    console.log(widget._id);
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
                 });
         }
     }
 
     function EditWidgetController($routeParams, $location, WidgetService) {
+
+        console.log("loaded.")
 
         var vm = this;
         vm.uid = $routeParams.uid;
@@ -95,7 +85,12 @@
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
 
+        console.log("GET STUFF", vm.wid, vm.uid, vm.pid);
+
         function init() {
+            console.log("bought to break?");
+            console.log(vm.wgid);
+
             WidgetService
                 .findWidgetById(vm.wgid)
                 .then(renderWidget);
@@ -104,7 +99,11 @@
         init();
 
         function renderWidget(widget) {
+            console.log("naw");
+
+
             vm.widget = widget;
+
         }
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
@@ -142,6 +141,8 @@
                     return;
                 }
             }
+
+            console.log("latest", latestData);
 
             WidgetService
                 .updateWidget($routeParams.wgid, latestData)
