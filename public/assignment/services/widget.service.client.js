@@ -53,10 +53,26 @@
             'findWidgetById': findWidgetById,
             'updateWidget': updateWidget,
             'deleteWidget': deleteWidget,
+            'moveWidget': moveWidget,
+
             //'deleteWidgetsByPage': deleteWidgetsByPage
         };
         return api;
 
+
+        function moveWidget(start, end, pageId) {
+            var url = "/api/assignment/page/" +pageId+ "/widget/moveWidget?start=" + start + "&end=" + end;
+
+
+            console.log(url, "URL");
+
+
+            console.log(pageId, "page in client");
+            return $http.put(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
         function createHeaderWidget(pageId, widget) {
             return {
@@ -126,10 +142,6 @@
 
         }
 
-
-        /*
-         * Standard CRUD
-         */
         function createWidget(pageId, widget) {
             console.log("widget:", widget);
             var newWidget = createWidgetMap[widget.widgetType](pageId, widget);

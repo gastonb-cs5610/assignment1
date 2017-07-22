@@ -5,7 +5,7 @@
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController($routeParams, $sce, WidgetService) {
+    function WidgetListController($routeParams, $sce, WidgetService, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -36,7 +36,11 @@
         function callBack(start, end) {
             console.log(start);
             console.log(end);
-            var wid = vm.widgets[start]._id;
+            WidgetService
+                 .moveWidget(start, end, vm.pid)
+                .then (function () {
+                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                 });
         }
 
     }
@@ -63,13 +67,10 @@
                 url: ""
             };
 
-
-            console.log("controller", newWidget);
-
             WidgetService
                 .createWidget(vm.pid, newWidget)
                 .then(function (widget) {
-                    console.log(widget._id);
+
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
                 });
         }
@@ -77,20 +78,13 @@
 
     function EditWidgetController($routeParams, $location, WidgetService) {
 
-        console.log("loaded.")
-
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
 
-        console.log("GET STUFF", vm.wid, vm.uid, vm.pid);
-
         function init() {
-            console.log("bought to break?");
-            console.log(vm.wgid);
-
             WidgetService
                 .findWidgetById(vm.wgid)
                 .then(renderWidget);
@@ -99,9 +93,6 @@
         init();
 
         function renderWidget(widget) {
-            console.log("naw");
-
-
             vm.widget = widget;
 
         }
