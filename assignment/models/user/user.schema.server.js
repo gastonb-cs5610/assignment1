@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 
-var userSchema = mongoose.Schema ({
+var userSchema = mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
     firstName: String,
     lastName: String,
-    websites: [{type: mongoose.Schema.ObjectId, ref: "WebsiteModel"}]
-}, {collection: "assignment_user"});
+    email: String,
+    websites: [{type: mongoose.Schema.Types.ObjectId, ref: "WebsiteModel"}],
+    dateCreated: {type: Date, default: Date.now}
+}, {collection: "user"});
 
-module.export = userSchema;
+module.exports = userSchema;

@@ -71,14 +71,15 @@ function updateUser(req, res) {
 
 function createUser(req, res) {
 
-    console.log(userModel);
     var user = req.body;
-
 
     userModel
         .createUser(user)
-        .then(function (doc) {
+        .then(function (user) {
+            console.log(user);
             res.json(user);
+        }, function (err) {
+            res.send(err);
         })
 }
 
@@ -113,18 +114,13 @@ function findAllUsers(req, res) {
 
 
 function findUserById(req, res) {
-    console.log("umm in server");
-
     var userId = req.params['userId'];
-    console.log("umm in server", userId);
 
-    for (u in users) {
-        if (parseInt(users[u]._id) === parseInt(userId)) {
-            res.send(users[u]);
-            return;
-        }
-    }
-    res.sendStatus(404);
+    userModel
+        .findUserById(userId)
+        .then(function (user) {
+            res.json(user);
+        });
 }
 
 function getNextId() {
