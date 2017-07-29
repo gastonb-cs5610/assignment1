@@ -3,9 +3,11 @@
  */
 
 
-
 module.exports = function() {
-    console.log("inside module exports");
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://localhost/webdev');
+    mongoose.Promise = require('q').Prommise;
+
     require("./services/user.service.server.js");
     require("./services/website.service.server.js");
     require("./services/page.service.server.js");

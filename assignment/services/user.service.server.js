@@ -1,4 +1,5 @@
 const app = require('../../express');
+var userModel = require('../models/user/user.model.server.js');
 
 var users = [
     {
@@ -69,10 +70,16 @@ function updateUser(req, res) {
 }
 
 function createUser(req, res) {
+
+    console.log(userModel);
     var user = req.body;
-    user._id = getNextId();
-    users.push(user);
-    res.json(user);
+
+
+    userModel
+        .createUser(user)
+        .then(function (doc) {
+            res.json(user);
+        })
 }
 
 
