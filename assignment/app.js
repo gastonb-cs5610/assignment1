@@ -5,14 +5,14 @@ module.exports = function(){
     var connectionString =  null;
 
     if (process.env.MONGODB_URI) {
-        connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev';
+        connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev'
     }
     else
     {
         connectionString = connectionString = 'mongodb://localhost:27017/cs5610'
     }
 
-    console.log(connectionString);
+    console.log("THIS IS MY CONNECTION STRING", connectionString);
 
     mongoose.connect(connectionString, {useMongoClient:true});
 
