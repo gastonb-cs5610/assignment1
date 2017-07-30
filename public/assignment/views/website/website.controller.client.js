@@ -9,6 +9,7 @@
         var vm = this;
         vm.userId = $routeParams["uid"];
 
+        console.log(vm.userId, "CONTROLLER");
 
         function init() {
             WebsiteService
@@ -31,7 +32,7 @@
         vm.createWebsite = createWebsite;
 
         function createWebsite(newSite) {
-            if (!newSite || newSite.desc === undefined || newSite.desc === null || newSite.desc === ""
+            if (!newSite || newSite.description === undefined || newSite.description === null || newSite.description === ""
                 || newSite.name === undefined || newSite.name === "" || newSite.name === null) {
 
                 vm.error = "Please enter the required fields.";
@@ -40,8 +41,7 @@
 
             var newWebsite = {
                 name: newSite.name,
-                desc: newSite.desc,
-                developerId: vm.userId
+                description: newSite.description,
             };
 
             WebsiteService
@@ -75,15 +75,18 @@
 
         function updateWebsite() {
             (console.log("controller"));
+
+            (console.log("yo    yo  yo"));
+
+
             var updated = {
                 _id: $routeParams.wid,
                 name: vm.website.name,
                 developerId: $routeParams.uid,
-                desc: vm.website.desc
-
+                description: vm.website.description
             };
 
-            if (!updated || updated.desc === undefined || updated.desc === null || updated.desc === ""
+            if (!updated || updated.description === undefined || updated.description === null || updated.description === ""
                 || updated.name === undefined || updated.name === "" || updated.name === null) {
                 vm.error = "Please enter the required fields.";
                 return;
@@ -99,11 +102,11 @@
 
         function deleteWebsite(wid) {
             WebsiteService
-                .deleteWebsite(wid)
+                .deleteWebsite(vm.userId, wid)
                 .then(function () {
                     $location.url('/user/' + vm.userId + "/website");
                 }, function() {
-                    model.error= "Unable to delete website";
+                    vm.error= "Unable to delete website";
                     $timeout(function () {
                         vm.updated = null;
                     }, 3000);

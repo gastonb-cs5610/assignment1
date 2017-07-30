@@ -20,7 +20,7 @@
 
 <div id="sortable" wbdv-sortable callback="model.callBack(start, end)">
     <div class="container-fluid" ng-repeat="widget in model.widgets">
-        <div class="cl-widget cl-widget-list-item" ng-switch="widget.widgetType">
+        <div class="cl-widget cl-widget-list-item" ng-switch="widget.type">
             <div ng-switch-when="HEADING">
                 <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
             </div>

@@ -1,38 +1,10 @@
-/**
- * Created by bluegaston on 6/13/17.
- */
+
 (function () {
     angular
         .module("WebAppMaker")
         .factory('WidgetService', WidgetService);
 
     function WidgetService($http) {
-        var widgets = [
-            { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO", "name": "here"},
-            { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-                "url": "http://lorempixel.com/400/200/" , "name": "here", "text": "Lorem ipsum"},
-            { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum" , "name": "here"},
-            { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
-
-            { "_id": "621", "widgetType": "HEADING", "pageId": "654", "size": 2, "text": "GIZMODO", "name": "here"},
-            { "_id": "777", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "666", "widgetType": "IMAGE", "pageId": "654", "width": "100%",
-                "url": "http://lorempixel.com/400/200/", "name": "here", "text": "Lorem ipsum"},
-            { "_id": "555", "widgetType": "HEADING", "pageId": "654", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "444", "widgetType": "YOUTUBE", "pageId": "654", "width": "100%",
-                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"},
-
-            { "_id": "889", "widgetType": "HEADING", "pageId": "765", "size": 2, "text": "GIZMODO", "name": "here"},
-            { "_id": "112", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "442", "widgetType": "IMAGE", "pageId": "765", "width": "100%",
-                "url": "http://lorempixel.com/400/200/", "name": "here", "text": "Lorem ipsum" },
-            { "_id": "111", "widgetType": "HEADING", "pageId": "765", "size": 4, "text": "Lorem ipsum", "name": "here"},
-            { "_id": "132", "widgetType": "YOUTUBE", "pageId": "765", "width": "100%",
-                "url": "https://youtube.com/embed/AM2Ivdi9c4E" , "name": "here", "text": "Lorem ipsum"}
-
-        ];
 
         var createWidgetMap = {
             'HEADING': createHeaderWidget,
@@ -76,7 +48,7 @@
 
         function createHeaderWidget(pageId, widget) {
             return {
-                widgetType: 'HEADING',
+                type: 'HEADING',
                 pageId: pageId,
                 size: widget.size,
                 name: widget.name,
@@ -89,7 +61,7 @@
 
         function createHTMLWidget(pageId, widget) {
             return {
-                widgetType: 'HTML',
+                type: 'HTML',
                 pageId: pageId,
                 name: widget.name,
                 text: widget.text
@@ -110,7 +82,7 @@
 
         function createImageWidget(pageId, widget) {
             return {
-                widgetType: 'IMAGE',
+                type: 'IMAGE',
                 pageId: pageId,
                 width: widget.width,
                 url: widget.url,
@@ -124,7 +96,7 @@
             console.log("createYoutube", widget);
 
             return {
-                widgetType: 'YOUTUBE',
+                type: 'YOUTUBE',
                 pageId: pageId,
                 name: widget.name,
                 text: widget.text,
@@ -144,7 +116,7 @@
 
         function createWidget(pageId, widget) {
             console.log("widget:", widget);
-            var newWidget = createWidgetMap[widget.widgetType](pageId, widget);
+            var newWidget = createWidgetMap[widget.type](pageId, widget);
             var url = "/api/assignment/page/" + pageId + "/widget";
             return $http.post(url, newWidget)
                 .then(function (response) {
@@ -185,8 +157,8 @@
 
         }
 
-        function deleteWidget(widgetId) {
-            var url = "/api/assignment/widget/" + widgetId;
+        function deleteWidget(pageId, widgetId) {
+            var url = "/api/assignment/page/" + pageId + "/widget/" + widgetId;
 
             return $http.delete(url)
                 .then(function (response) {
@@ -194,13 +166,6 @@
                 });
         }
 
-        // function deleteWidgetsByPage(pageId) {
-        //     for (wid in widgets) {
-        //         widget = widgets[wid];
-        //         if (widget.pageId === pageId) {
-        //             deleteWidget(widget._id);
-        //         }
-        //     }
-        // }
+
     }
 })();
