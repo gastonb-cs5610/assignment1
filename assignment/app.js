@@ -2,20 +2,18 @@ module.exports = function(){
 
 
     var mongoose = require('mongoose');
-    var connectionString =  null;
 
-    if (process.env.MONGODB_URI) {
-        connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev'
-    }
-    else
-    {
-        connectionString = connectionString = 'mongodb://localhost:27017/cs5610'
+
+    if(process.env.NODE_ENV === 'development') {
+        connectionString = 'mongodb://localhost/cs5610'
+    } else {
+        connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev';
     }
 
-    console.log("THIS IS MY CONNECTION STRING", connectionString);
+    console.log(connectionString);
 
-    mongoose.connect(connectionString, {useMongoClient:true});
-
+    mongoose.Promise = require('q').Promise;
+    mongoose.connect(connectionString);
 
 
     require("./services/user.service.server.js");
