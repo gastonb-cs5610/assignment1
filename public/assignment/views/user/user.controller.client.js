@@ -18,7 +18,7 @@
 
 
                 UserService
-                    .findUserByCredentials(user.username, user.password)
+                    .login(user.username, user.password)
                     .then(function (userCheck) {
                         if (userCheck) {
                             $location.url("/user/" + userCheck._id);

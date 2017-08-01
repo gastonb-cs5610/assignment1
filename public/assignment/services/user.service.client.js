@@ -9,22 +9,31 @@
         .factory('UserService', UserService);
 
     function UserService($http ) {
-        var users = [
-            {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder", email: "alice@gmail.com"},
-            {_id: "100", username: "a", password: "a", firstName: "a", lastName: "a", email: "a@gmail.com"},
-            {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley", email: "bob@regge.com"},
-            {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia", email: "charles@bing.com"},
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi", email: "jose@neu.com"}
-        ];
+
         var services = {
             "createUser": createUser,
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "login": login
+
         };
         return services;
+
+        function login(username, password) {
+            var url = "/api/assignment/login";
+            var credentials = {
+                username : username,
+                password : password
+            };
+
+            return $http.post(url, credentials)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
 
         function createUser(user) {
