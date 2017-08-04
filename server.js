@@ -6,7 +6,6 @@ var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
 
 
-
 // install, load, and configure body parser module
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -24,6 +23,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
