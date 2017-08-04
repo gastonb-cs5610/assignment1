@@ -15,12 +15,33 @@
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
+            "checkLoggedIn": checkLoggedIn,
             "updateUser": updateUser,
             "deleteUser": deleteUser,
-            "login": login
-
+            "login": login,
+            "logout": logout,
+            "register": register
         };
         return services;
+        
+        function register(newUser) {
+            var url = "/api/assignment/register";
+            return $http.post(url, newUser)
+                .then(function (response) {
+                    return response.data;
+                    
+                })
+        }
+        
+        function checkLoggedIn() {
+            var url=  '/api/assignment/loggedin';
+
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+            });
+
+        }
 
         function login(username, password) {
             var url = "/api/assignment/login";
@@ -29,7 +50,18 @@
                 password : password
             };
 
+            console.log(credentials, "credentials");
+
             return $http.post(url, credentials)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function logout() {
+            var url = "/api/assignment/logout";
+
+            return $http.post(url)
                 .then(function (response) {
                     return response.data;
                 });
@@ -55,9 +87,10 @@
 
         function findUserByUsername(username) {
             var url = "/api/assignment/user?username=" + username;
-
+            console.log("in client server", username);
             return $http.get(url)
                 .then(function (response) {
+                    console.log("wut", response);
                     return response.data;
                 });
         }

@@ -6,27 +6,101 @@ var auth = authorized;
 
 var LocalStrategy = require('passport-local').Strategy;
 
+var bcrypt = require("bcrypt-nodejs");
+
+
 passport.use(new LocalStrategy(localStrategy));
+
+
+var FacebookStrategy = require('passport-facebook').Strategy;
+
+var facebookConfig = {
+    clientID: '320404104996627', // facebook app id
+    clientSecret: 'c6b8bc610c3bafc10c462b9271871cf9',
+    callbackURL: 'http://localhost:3000/assignment/api/auth/facebook/callback',
+    profileFields: ['id', 'emails', 'displayName', 'name']
+};
+
+
+passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
 app.post  ('/api/assignment/login', passport.authenticate('local'), login);
 app.post  ('/api/assignment/logout',         logout);
-//app.post  ('/api/assignment/register',       register);
+app.post  ('/api/assignment/register',       register);
 app.get   ('/api/assignment/loggedin',       loggedin);
 
-app.get('/api/assignment/user', auth, findAllUsers);
+app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+app.get('/auth/assignment/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/profile',
+        failureRedirect: '/login'
+    }));
+
+app.get('/api/assignment/user', findAllUsers);
 app.get('/api/assignment/user/:userId', findUserById);
 app.put('/api/assignment/user/:userId', auth, updateUser);
 app.delete('/api/assignment/user/:userId', auth, deleteUser);
 app.post('/api/assignment/user', auth, createUser);
 
 
+function facebookStrategy(token, refreshToken, profile, done) {
+    developerModel
+        .findUserByFacebookId(profile.id)
+        .then(function (user) {
+            if (user) {
+                return done(null, user);
+            } else {
+                var userEmail = profile.emails[0].value;
+                var signature = userEmail.split("@")[0];
+                var newFacebookUser = {
+                    username: signature + '-fb',
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName,
+                    email: userEmail,
+                    facebook: {
+                        id: profile.id,
+                        token: token
+                    }
+                };
+                return userModel.createUser(newFacebookUser);
+            }
+        }, function (err) {
+            if (err) {
+                return done(err);
+            }
+        }).then(
+            function (user) {
+                return done(null, user);
+            }, function (err) {
+                if (err) {
+                    return done(err);
+                }
+            }
+        );
+}
+
+
+
+function register(req, res) {
+    var newUser = req.body;
+    newUser.password = bcrypt.hashSync(newUser.password);
+    return userModel
+        .createUser(newUser)
+        .then(function (user) {
+            req
+                .login(user, function (status) {
+                    res.send(status);
+                });
+        })
+}
 
 function authorized (req, res, next) {
     if (!req.isAuthenticated()) {
-        res.send(401);
+        res.sendStatus(401);
     } else {
         next();
     }
@@ -34,24 +108,38 @@ function authorized (req, res, next) {
 
 
 function localStrategy(username, password, done) {
+
     userModel
-        .findUserByCredentials(username, password)
-        .then(
-            function (user) {
-                if (user && bcrypt.compareSync(password, user.password)) {
-                    return done(null, user);
-                } else {
-                    return done(null, false);
-                }
-            },
-            function (error) {
-                return done(error, null);
+        .findUserByUsername(username)
+        .then(function (user) {
+
+            console.log("LOCAL");
+
+            console.log(user);
+            console.log(password);
+
+            if (user && bcrypt.compareSync(password, user.password)) {
+                console.log("wuddup");
+
+                return done(null, user);
+            } else {
+                console.log("oh no no no no");
+
+                return done(null, false);
             }
-        );
+        }, function (error) {
+            done(error, false);
+        });
 }
 
 function login(req, res) {
     var user = req.user;
+    console.log(user, "inlogin");
+    // if(user && bcrypt.compareSync(password, user.password)) {
+    //     return done(null, user);
+    // } else {
+    //     return done(null, false);
+    // }
     res.json(user);
 }
 
@@ -61,7 +149,16 @@ function logout(req, res) {
 }
 
 function loggedin(req, res) {
-    res.send(req.isAuthenticated() ? req.user : '0');
+
+    console.log(req.user);
+    if(req.isAuthenticated()) {
+        console.log("is logged in ");
+        res.json(req.user);
+    } else {
+        console.log("is not logged in ");
+
+        res.send('0');
+    }
 }
 
 function serializeUser(user, done) {
@@ -119,6 +216,10 @@ function createUser(req, res) {
 function findAllUsers(req, res) {
     var username = req.query['username'];
     var password = req.query.password;
+
+    console.log("serverside", username);
+
+
     if(username && password) {
         userModel
             .findUserByCredentials(username, password)
@@ -130,6 +231,7 @@ function findAllUsers(req, res) {
                 }
             });
     } else if(username) {
+        console.log("got to here");
         userModel
             .findUserByUsername(username)
             .then(function (user) {

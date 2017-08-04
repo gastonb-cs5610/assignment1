@@ -1,12 +1,12 @@
 <nav class="navbar narbar-default navbar-fixed-top cl-web-navbar">
     <div class="container-fluid">
-        <a href="#!/user/{{model.userId}}" class="navbar-link navbar-text pull-left cl-icon-navbar">
+        <a href="#!/profile" class="navbar-link navbar-text pull-left cl-icon-navbar">
             <span class="glyphicon glyphicon-chevron-left "></span>
         </a>
         <a class="navbar-brand cl-navbar-text">
             Websites
         </a>
-        <a href="#!/user/{{model.userId}}/website/new" class="navbar-link navbar-text pull-right cl-icon-navbar">
+        <a href="#!/website/new" class="navbar-link navbar-text pull-right cl-icon-navbar">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -15,15 +15,15 @@
 <div class="container">
     <ul class="list-group cl-list-group-borderless">
         <li ng-repeat="website in model.websites" class="list-group-item cl-list-item-borderless">
-            <a href="#!/user/{{model.userId}}/website/{{website._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-            <a href="#!/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a>
+            <a href="#!/website/{{website._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+            <a href="#!/website/{{website._id}}/page">{{website.name}}</a>
         </li>
     </ul>
 </div>
 
 <nav class="navbar navbar-fixed-bottom  cl-web-navbar">
     <div class="container-fuild">
-        <a href="#!/user/{{model.userId}}" class="navbar-link navbar-text pull-right cl-icon-navbar cl-icon-padding">
+        <a href="#!/profile" class="navbar-link navbar-text pull-right cl-icon-navbar cl-icon-padding">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>

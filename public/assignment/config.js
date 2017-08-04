@@ -14,32 +14,50 @@
             .when('/register', {
                 templateUrl: "views/user/register.view.client.html",
                 controller: "RegisterController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             })
             .when('/login', {
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             })
-            .when('/user/:uid', {
+            .when('/profile', {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when('/user/:uid/website', {
+            .when('/website', {
                 templateUrl: "views/website/website-list.view.client.html",
                 controller: "WebsiteListController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when('/user/:uid/website/new', {
+            .when('/website/new', {
                 templateUrl: "views/website/website-new.view.client.html",
                 controller: "NewWebsiteController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when('/user/:uid/website/:wid', {
+            .when('/website/:wid', {
                 templateUrl: "views/website/website-edit.view.client.html",
                 controller: "EditWebsiteController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
             .when('/user/:uid/website/:wid/page', {
                 templateUrl: "views/pages/page-list.view.client.html",
@@ -74,12 +92,47 @@
             .when('/', {
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
-                controllerAs: "model"
-            })
-            .otherwise({
-                templateUrl: "views/user/login.view.client.html",
-                controller: "LoginController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             });
     }
+
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+
+        UserService
+            .checkLoggedIn()
+            .then(function (user) {
+                if (user === '0') {
+                    deferred.reject();
+                    $location.url('/login');
+                } else {
+                    deferred.resolve(user);
+                }
+            });
+
+        return deferred.promise;
+    }
+
+    function checkCurrentUser(UserService, $q, $location) {
+
+        var deferred = $q.defer();
+
+        UserService
+            .checkLoggedIn()
+            .then(function (user) {
+                if(user === '0') {
+                    deferred.resolve({});
+                } else {
+                    deferred.resolve(user);
+                    $location.url('/profile');
+                }
+            });
+
+        return deferred.promise;
+    }
+
 })();
