@@ -6,11 +6,11 @@ module.exports = function(){
     connectionString = 'mongodb://localhost/cs5610'
 
 
-    // if(process.env.NODE_ENV === 'development') {
-    //     connectionString = 'mongodb://localhost/cs5610'
-    // } else {
-    //     connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev';
-    // }
+    if(process.env.NODE_ENV === 'development') {
+        connectionString = 'mongodb://localhost/cs5610'
+    } else {
+        connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev';
+    }
 
     console.log(connectionString);
 
