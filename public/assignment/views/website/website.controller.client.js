@@ -49,9 +49,6 @@
             vm.websites = websites;
         }
 
-        console.log("loaded new controller");
-        console.log("CUR USER:", currentUser);
-        console.log("CUR ID:", vm.userId);
 
         vm.createWebsite = createWebsite;
 

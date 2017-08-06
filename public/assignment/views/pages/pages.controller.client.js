@@ -50,7 +50,7 @@
             PageService
                 .createPage(vm.websiteId, newPageInfo)
                 .then(function () {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    $location.url("/website/" + vm.websiteId + "/page");
 
                 });
 
@@ -100,7 +100,7 @@
             PageService
                 .updatePage($routeParams.pid, updated_page)
                 .then(function () {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    $location.url("/website/" + vm.websiteId + "/page");
                 });
 
         }
@@ -109,7 +109,7 @@
             PageService
                 .deletePage(pid)
                 .then(function () {
-                    $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + "/page");
+                    $location.url('/website/' + vm.websiteId + "/page");
                 }, function() {
                     model.error= "Unable to delete page";
                     $timeout(function () {

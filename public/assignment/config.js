@@ -59,32 +59,32 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/user/:uid/website/:wid/page', {
+            .when('/website/:wid/page', {
                 templateUrl: "views/pages/page-list.view.client.html",
                 controller: "PageListController",
                 controllerAs: "model"
             })
-            .when('/user/:uid/website/:wid/page/new', {
+            .when('/website/:wid/page/new', {
                 templateUrl: "views/pages/page-new.view.client.html",
                 controller: "NewPageController",
                 controllerAs: "model"
             })
-            .when('/user/:uid/website/:wid/page/:pid', {
+            .when('/website/:wid/page/:pid', {
                 templateUrl: "views/pages/page-edit.view.client.html",
                 controller: "EditPageController",
                 controllerAs: "model"
             })
-            .when('/user/:uid/website/:wid/page/:pid/widget', {
+            .when('/website/:wid/page/:pid/widget', {
                 templateUrl: "views/widget/templates/widget-list.view.client.html",
                 controller: "WidgetListController",
                 controllerAs: "model"
             })
-            .when('/user/:uid/website/:wid/page/:pid/widget/new', {
+            .when('/website/:wid/page/:pid/widget/new', {
                 templateUrl: "views/widget/templates/widget-chooser.view.client.html",
                 controller: "NewWidgetController",
                 controllerAs: "model"
             })
-            .when('/user/:uid/website/:wid/page/:pid/widget/:wgid', {
+            .when('/website/:wid/page/:pid/widget/:wgid', {
                 templateUrl: "views/widget/templates/widget-edit.view.client.html",
                 controller: "EditWidgetController",
                 controllerAs: "model"

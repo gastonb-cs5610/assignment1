@@ -7,15 +7,12 @@
 
     function WidgetListController($routeParams, $sce, WidgetService, $location) {
         var vm = this;
-        vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
 
         vm.trustSrc = trustSrc;
 
         vm.callBack = callBack;
-
-        console.log(vm.uid, "ID");
 
         function init() {
             WidgetService
@@ -34,12 +31,10 @@
         }
 
         function callBack(start, end) {
-            console.log(start);
-            console.log(end);
             WidgetService
                  .moveWidget(start, end, vm.pid)
                 .then (function () {
-                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                     $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                  });
         }
 
@@ -47,7 +42,6 @@
 
     function NewWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
-        vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
 
@@ -71,7 +65,7 @@
                 .createWidget(vm.pid, newWidget)
                 .then(function (widget) {
                     console.log("in controller", widget);
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
+                    $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
                 });
         }
     }
@@ -79,7 +73,6 @@
     function EditWidgetController($routeParams, $location, WidgetService) {
 
         var vm = this;
-        vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
@@ -138,7 +131,7 @@
             WidgetService
                 .updateWidget($routeParams.wgid, latestData)
                 .then(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 });
 
         }
@@ -147,7 +140,7 @@
             WidgetService
                 .deleteWidget(vm.pid, vm.wgid)
                 .then(function () {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 });
         }
 
