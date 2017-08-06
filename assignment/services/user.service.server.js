@@ -113,11 +113,9 @@ function localStrategy(username, password, done) {
         .findUserByUsername(username)
         .then(function (user) {
 
-            console.log("LOCAL");
+            console.log("LOCAL,", user);
 
             console.log(user);
-            console.log(password);
-
             if (user && bcrypt.compareSync(password, user.password)) {
                 console.log("wuddup");
 
@@ -132,14 +130,8 @@ function localStrategy(username, password, done) {
         });
 }
 
-function login(req, res) {
+function login(req, res, done) {
     var user = req.user;
-    console.log(user, "inlogin");
-    // if(user && bcrypt.compareSync(password, user.password)) {
-    //     return done(null, user);
-    // } else {
-    //     return done(null, false);
-    // }
     res.json(user);
 }
 
