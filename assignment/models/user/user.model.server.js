@@ -53,7 +53,6 @@ function findAllUsers() {
 }
 
 function findUserByUsername(username) {
-    console.log("in Model", username);
     return userModel.findOne({username: username});
 }
 

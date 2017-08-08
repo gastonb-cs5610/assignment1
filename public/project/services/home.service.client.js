@@ -13,10 +13,20 @@
             'rememberUser': rememberUser,
             'register': register,
             'login' : login,
+            "checkLoggedIn": checkLoggedIn,
             "findUserByUsername": findUserByUsername
         };
 
         return services;
+
+        function checkLoggedIn() {
+            var url=  '/api/project/loggedin';
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
 
         function userRemember(newUser) {
             interestedUser = newUser;
@@ -33,10 +43,9 @@
                 password : password
             };
 
-            console.log(credentials, "credentials");
-
             return $http.post(url, credentials)
                 .then(function (response) {
+                    console.log("returned");
                     return response.data;
                 });
         }

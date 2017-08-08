@@ -5,11 +5,12 @@ var passport = require('passport');
 var auth = authorized;
 
 var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(localStrategy));
+
 
 var bcrypt = require("bcrypt-nodejs");
 
 
-passport.use(new LocalStrategy(localStrategy));
 
 
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -28,7 +29,7 @@ passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
-app.post('/api/assignment/login', passport.authenticate('local'), login);
+app.post('/api/assignment/login', login);
 app.post('/api/assignment/logout', logout);
 app.post('/api/assignment/register', register);
 app.get('/api/assignment/loggedin', loggedin);
@@ -48,7 +49,7 @@ app.post('/api/assignment/user', auth, createUser);
 
 
 function facebookStrategy(token, refreshToken, profile, done) {
-    developerModel
+    userModel
         .findUserByFacebookId(profile.id)
         .then(function (user) {
             if (user) {
@@ -98,6 +99,7 @@ function register(req, res) {
 }
 
 function authorized(req, res, next) {
+    console.log("touched");
     if (!req.isAuthenticated()) {
         res.sendStatus(401);
     } else {
@@ -107,32 +109,51 @@ function authorized(req, res, next) {
 
 
 function localStrategy(username, password, done) {
-
     userModel
-        .findUserByUsername(username)
-        .then(function (user) {
-
-            console.log("LOCAL,", user);
-
-            console.log(user);
-            if (user && bcrypt.compareSync(password, user.password)) {
-                console.log("wuddup");
-
-                return done(null, user);
-            } else {
-                console.log("oh no no no no");
-
-                return done(null, false);
+        .findUserByUsername(username, password)
+        .then(
+            function (user) {
+                if (user) {
+                    if (user.password && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    }
+                    else {
+                        return done(null, false, {message: 'Invalid Password'});
+                    }
+                }
+                else {
+                    return done(null, false, {message: 'Incorrect Username / Password'});
+                }
+            },
+            function (err) {
+                if (err) {
+                    return done(err);
+                }
             }
-        }, function (error) {
-            done(error, false);
-        });
+        );
 }
 
-function login(req, res, done) {
-    var user = req.user;
-    res.json(user);
+function login(req, res, next) {
+    console.log("login")
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(401).send(info.message);
+        }
+
+        console.log("LOGIN");
+
+        req.login(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            return res.json(user);
+        });
+    })(req, res, next);
 }
+
 
 function logout(req, res) {
     req.logOut();
@@ -140,14 +161,12 @@ function logout(req, res) {
 }
 
 function loggedin(req, res) {
-
     console.log(req.user);
     if (req.isAuthenticated()) {
         console.log("is logged in ");
         res.json(req.user);
     } else {
         console.log("is not logged in ");
-
         res.send('0');
     }
 }

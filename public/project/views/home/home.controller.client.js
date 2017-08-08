@@ -5,11 +5,11 @@
         .controller("HomeController", HomeController)
         .controller("RegisterController", RegisterController);
 
-    function LoginController($location, HomeService) {
+    function LoginController($location, HomeService, currentUser) {
         var vm = this;
         vm.login = login;
 
-        function login(user) {
+        function login() {
 
 
             if (!vm.user || vm.user.username === "" || vm.user.password === "") {

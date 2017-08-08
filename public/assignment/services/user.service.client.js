@@ -44,6 +44,7 @@
         }
 
         function login(username, password) {
+            console.log("trying")
             var url = "/api/assignment/login";
             var credentials = {
                 username : username,

@@ -2,37 +2,43 @@ const app = require('../../express');
 var homeModel = require('../models/home/home.model.server.js');
 
 var passport = require('passport');
-//var auth = authorized;
 
 var LocalStrategy = require('passport-local').Strategy;
 
 var bcrypt = require("bcrypt-nodejs");
 
-passport.use(new LocalStrategy(localStrategy));
+passport.use('project', new LocalStrategy(localStrategy2));
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
 app.post  ('/api/project/register',  register);
-app.post('/api/project/login', passport.authenticate('local'), login);
+app.post('/api/project/login', passport.authenticate('project'), login);
 
 app.get('/api/project/user', findAllUsers);
+app.get('/api/project/loggedin', loggedin);
 
-function localStrategy(username, password, done) {
+
+function loggedin(req, res) {
+    console.log(req.user);
+    if (req.isAuthenticated()) {
+        console.log("is logged in ");
+        res.json(req.user);
+    } else {
+        console.log("is not logged in ");
+        res.send('0');
+    }
+}
+
+function localStrategy2(username, password, done) {
     homeModel
         .findUserByUsername(username)
         .then(function (user) {
-
-            console.log("LOCAL,", user);
-
             console.log(user);
             if (user && bcrypt.compareSync(password, user.password)) {
-                console.log("wuddup");
-
+                console.log("here");
                 return done(null, user);
             } else {
-                console.log("oh no no no no");
-
                 return done(null, false);
             }
         }, function (error) {
@@ -40,11 +46,29 @@ function localStrategy(username, password, done) {
         });
 }
 
-function login(req, res) {
-    console.log("loginigng in");
-    var user = req.user;
-    res.json(user);
+function login(req, res, next) {
+    console.log("login");
+    passport.authenticate('project', function (err, user, info) {
+        if (err) {
+            console.log(err, "error");
+
+            return next(err);
+        }
+        if (!user) {
+            console.log(user, "no user");
+
+            return res.status(401).send(info.message);
+        }
+        
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            return res.json(user);
+        });
+    })(req, res, next);
 }
+
 
 function register(req, res) {
     console.log("in server-- register");
@@ -115,3 +139,4 @@ function deserializeUser(user, done) {
             }
         );
 }
+
