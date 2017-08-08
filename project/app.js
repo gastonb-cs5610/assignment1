@@ -20,4 +20,6 @@ module.exports = function(){
 
     require("./services/home.service.server.js");
 
+    require("../shared/passport.js");
+
 };

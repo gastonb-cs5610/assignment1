@@ -1,16 +1,16 @@
 const app = require('../../express');
 var homeModel = require('../models/home/home.model.server.js');
 
-var passport = require('passport');
+var passport = require('../../shared/passport');
 
-var LocalStrategy = require('passport-local').Strategy;
+// var LocalStrategy = require('passport-local').Strategy;
 
 var bcrypt = require("bcrypt-nodejs");
 
-passport.use('project', new LocalStrategy(localStrategy2));
-
-passport.serializeUser(serializeUser);
-passport.deserializeUser(deserializeUser);
+// // passport.use('project', new LocalStrategy(localStrategy2));
+//
+// passport.serializeUser(serializeUser);
+// passport.deserializeUser(deserializeUser);
 
 app.post  ('/api/project/register',  register);
 app.post('/api/project/login', passport.authenticate('project'), login);
@@ -56,14 +56,15 @@ function login(req, res, next) {
         }
         if (!user) {
             console.log(user, "no user");
-
             return res.status(401).send(info.message);
         }
-        
-        req.logIn(user, function (err) {
+        console.log("this");
+        req.login(user, function (err) {
             if (err) {
+                console.log("error")
                 return next(err);
             }
+                console.log("returning", user);
             return res.json(user);
         });
     })(req, res, next);

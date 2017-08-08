@@ -1,11 +1,12 @@
 const app = require('../../express');
 var userModel = require('../models/user/user.model.server.js');
 
-var passport = require('passport');
+var passport = require('../../shared/passport');
+
 var auth = authorized;
 
-var LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(localStrategy));
+// var LocalStrategy = require('passport-local').Strategy;
+// passport.use(new LocalStrategy(localStrategy));
 
 
 var bcrypt = require("bcrypt-nodejs");
@@ -13,21 +14,21 @@ var bcrypt = require("bcrypt-nodejs");
 
 
 
-var FacebookStrategy = require('passport-facebook').Strategy;
+// var FacebookStrategy = require('passport-facebook').Strategy;
 
-var facebookConfig = {
-    clientID: '320404104996627', // facebook app id
-    clientSecret: 'c6b8bc610c3bafc10c462b9271871cf9',
-    callbackURL: 'http://localhost:3000/assignment/api/auth/facebook/callback',
-    profileFields: ['id', 'emails', 'displayName', 'name']
-};
-
-
-passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+// var facebookConfig = {
+//     clientID: '320404104996627', // facebook app id
+//     clientSecret: 'c6b8bc610c3bafc10c462b9271871cf9',
+//     callbackURL: 'http://localhost:3000/assignment/api/auth/facebook/callback',
+//     profileFields: ['id', 'emails', 'displayName', 'name']
+// };
 
 
-passport.serializeUser(serializeUser);
-passport.deserializeUser(deserializeUser);
+// passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+//
+// passport.serializeUser(serializeUser);
+// passport.deserializeUser(common);
 
 app.post('/api/assignment/login', login);
 app.post('/api/assignment/logout', logout);
@@ -48,41 +49,41 @@ app.delete('/api/assignment/user/:userId', auth, deleteUser);
 app.post('/api/assignment/user', auth, createUser);
 
 
-function facebookStrategy(token, refreshToken, profile, done) {
-    userModel
-        .findUserByFacebookId(profile.id)
-        .then(function (user) {
-            if (user) {
-                return done(null, user);
-            } else {
-                var userEmail = profile.emails[0].value;
-                var signature = userEmail.split("@")[0];
-                var newFacebookUser = {
-                    username: signature + '-fb',
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: userEmail,
-                    facebook: {
-                        id: profile.id,
-                        token: token
-                    }
-                };
-                return userModel.createUser(newFacebookUser);
-            }
-        }, function (err) {
-            if (err) {
-                return done(err);
-            }
-        }).then(
-        function (user) {
-            return done(null, user);
-        }, function (err) {
-            if (err) {
-                return done(err);
-            }
-        }
-    );
-}
+// function facebookStrategy(token, refreshToken, profile, done) {
+//     userModel
+//         .findUserByFacebookId(profile.id)
+//         .then(function (user) {
+//             if (user) {
+//                 return done(null, user);
+//             } else {
+//                 var userEmail = profile.emails[0].value;
+//                 var signature = userEmail.split("@")[0];
+//                 var newFacebookUser = {
+//                     username: signature + '-fb',
+//                     firstName: profile.name.givenName,
+//                     lastName: profile.name.familyName,
+//                     email: userEmail,
+//                     facebook: {
+//                         id: profile.id,
+//                         token: token
+//                     }
+//                 };
+//                 return userModel.createUser(newFacebookUser);
+//             }
+//         }, function (err) {
+//             if (err) {
+//                 return done(err);
+//             }
+//         }).then(
+//         function (user) {
+//             return done(null, user);
+//         }, function (err) {
+//             if (err) {
+//                 return done(err);
+//             }
+//         }
+//     );
+// }
 
 
 function register(req, res) {
@@ -108,30 +109,30 @@ function authorized(req, res, next) {
 };
 
 
-function localStrategy(username, password, done) {
-    userModel
-        .findUserByUsername(username, password)
-        .then(
-            function (user) {
-                if (user) {
-                    if (user.password && bcrypt.compareSync(password, user.password)) {
-                        return done(null, user);
-                    }
-                    else {
-                        return done(null, false, {message: 'Invalid Password'});
-                    }
-                }
-                else {
-                    return done(null, false, {message: 'Incorrect Username / Password'});
-                }
-            },
-            function (err) {
-                if (err) {
-                    return done(err);
-                }
-            }
-        );
-}
+// function localStrategy(username, password, done) {
+//     userModel
+//         .findUserByUsername(username, password)
+//         .then(
+//             function (user) {
+//                 if (user) {
+//                     if (user.password && bcrypt.compareSync(password, user.password)) {
+//                         return done(null, user);
+//                     }
+//                     else {
+//                         return done(null, false, {message: 'Invalid Password'});
+//                     }
+//                 }
+//                 else {
+//                     return done(null, false, {message: 'Incorrect Username / Password'});
+//                 }
+//             },
+//             function (err) {
+//                 if (err) {
+//                     return done(err);
+//                 }
+//             }
+//         );
+// }
 
 function login(req, res, next) {
     console.log("login")
@@ -175,18 +176,31 @@ function serializeUser(user, done) {
     done(null, user);
 }
 
-function deserializeUser(user, done) {
-    userModel
-        .findUserById(user._id)
-        .then(
-            function (user) {
-                done(null, user);
-            },
-            function (error) {
-                done(error, null);
-            }
-        );
-}
+// function deserializeUser(user, done) {
+//     if (user.project) {
+//         homeModel
+//             .findUserById(user._id)
+//             .then(
+//                 function (user) {
+//                     done(null, user);
+//                 },
+//                 function (error) {
+//                     done(error, null);
+//                 }
+//             );
+//     } else {
+//         userModel
+//             .findUserById(user._id)
+//             .then(
+//                 function (user) {
+//                     done(null, user);
+//                 },
+//                 function (error) {
+//                     done(error, null);
+//                 }
+//             );
+//     }
+// }
 
 function deleteUser(req, res) {
     var userId = req.params.userId;

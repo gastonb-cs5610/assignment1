@@ -12,7 +12,9 @@ var homeSchema = mongoose.Schema({
     apps: [{type: String,
         enum: ['FACEBOOK', 'INSTAGRAM', 'BOOMERANG', 'TWITTER', 'SNAPCHAT']}],
     device: {type: String, enum:['IPHONE', 'ANDROID', 'BOTH', 'OTHER']},
-    dateCreated: {type: Date, default: Date.now}
+    dateCreated: {type: Date, default: Date.now},
+    project: {type: Boolean, default: true}
+
 }, {collection: "proj.user"});
 
 module.exports = homeSchema;
