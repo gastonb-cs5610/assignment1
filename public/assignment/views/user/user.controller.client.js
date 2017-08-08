@@ -50,13 +50,10 @@
                 return;
             }
 
-            console.log("called register2")
-
-
             UserService
                 .findUserByUsername(mUser.username)
                 .then(function () {
-                        console.log("erroer");
+                        console.log("error");
                         vm.error = "Username already exists.";
                     }, function () {
                         var newUser = {

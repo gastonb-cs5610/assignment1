@@ -1,0 +1,80 @@
+<!-- Navigation -->
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand nav-link" href="#">Captured.</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#!/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/login">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Full Width Image Header with Logo -->
+<!-- Image backgrounds are set within the full-width-pics.css file. -->
+<header class="image-bg-fluid-height">
+    <img class="img-responsive img-center" src="img/logo.png" alt="">
+</header>
+
+<!-- Content Section -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+                <h1 class="section-heading">Get Started.</h1>
+
+                <form action="">
+                    <input ng-model="model.user.type" type="radio" name="Selection" id="Taker" value="TAKER">
+                    <label class="lead section-lead cl-radio-right cl-align-middle" for="Taker">I want to take photos</label>
+                    <input ng-model="model.user.type" id="Seeker" type="radio" name="Selection" value="SEEKER">
+                    <label class="lead section-lead cl-align-middle" for="Seeker">I'm seeking a photographer</label>
+                </form>
+
+                <input type="text"
+                       class="form-control"
+                       placeholder="username"
+                       ng-model="model.user.username"/>
+                <input type="password"
+                       class="form-control"
+                       placeholder="password"
+                       ng-model="model.user.password"/>
+                <input type="password"
+                       class="form-control"
+                       placeholder="verify password"
+                       ng-model="vpassword"/>
+                <a href = "" ng-click="model.collectData(model.user, vpassword)" class="btn btn-outline-success btn-block cl-register-btn">Register</a>
+
+                <p class="section-paragraph">Interested in earning cash as a photographer in your own neighborhood? Condsider joining us as a social media specialist.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fixed Height Image Aside -->
+<!-- Image backgrounds are set within the full-width-pics.css file. -->
+<aside class="image-bg-fixed-height"></aside>
+
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Blue Gaston (Northeastern University Web Dev)</p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</footer>

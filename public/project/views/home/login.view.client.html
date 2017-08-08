@@ -1,0 +1,42 @@
+<!-- Navigation -->
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand nav-link" href="#">Captured.</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#!/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/home">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Content Section -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+                <h1 class="section-heading">Welcome Back</h1>
+                <input type="text"
+                       class="form-control"
+                       placeholder="username"
+                       ng-model="model.user.username"/>
+                <input type="password"
+                       class="form-control"
+                       placeholder="password"
+                       ng-model="model.user.password"/>
+                <a href = "" ng-click="model.login()" class="btn btn-outline-success btn-block cl-register-btn">Login</a>
+            </div>
+        </div>
+    </div>
+</section>

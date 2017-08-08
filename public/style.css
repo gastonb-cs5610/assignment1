@@ -3,9 +3,23 @@ ul {
 }
 
 .cl-links-padding {
-    padding: 50px;
+    padding: 10px;
 }
 
 .cl-btn-pads {
     margin: 5px;
+}
+
+.cl-nav {
+    background: #ffa220;
+}
+
+body {
+    margin-top: 60px;
+    background: blanchedalmond;
+}
+
+p {
+    font-family: "American Typewriter";
+    font-size: 30px;
 }

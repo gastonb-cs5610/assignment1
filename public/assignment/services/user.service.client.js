@@ -8,7 +8,7 @@
         .module("WebAppMaker")
         .factory('UserService', UserService);
 
-    function UserService($http ) {
+    function UserService($http) {
 
         var services = {
             "createUser": createUser,

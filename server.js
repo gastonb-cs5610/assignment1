@@ -32,6 +32,11 @@ app.use(passport.session());
 var appFn = require("./assignment/app.js");
 appFn();
 
+var appPn = require("./project/app.js");
+appPn();
+
+
+
 app.get('/', function(request, response) {
     var result = 'App is running';
     response.send(result);

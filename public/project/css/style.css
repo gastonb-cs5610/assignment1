@@ -1,0 +1,25 @@
+.cl-align-middle{
+    vertical-align: middle;
+    margin-top: 28px;
+}
+
+.cl-radio-right{
+    padding-right: 30px;
+}
+
+.cl-register-btn{
+    margin-top: 11px;
+}
+
+.cl-register-label {
+    font-size: 1rem;
+    font-weight: 300;
+    padding-top: 5px;
+    margin-bottom: 0rem;
+}
+
+.cl-register-options {
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0px;
+}

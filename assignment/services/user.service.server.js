@@ -1,7 +1,7 @@
 const app = require('../../express');
 var userModel = require('../models/user/user.model.server.js');
 
-var passport      = require('passport');
+var passport = require('passport');
 var auth = authorized;
 
 var LocalStrategy = require('passport-local').Strategy;
@@ -28,12 +28,12 @@ passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
-app.post  ('/api/assignment/login', passport.authenticate('local'), login);
-app.post  ('/api/assignment/logout',         logout);
-app.post  ('/api/assignment/register',       register);
-app.get   ('/api/assignment/loggedin',       loggedin);
+app.post('/api/assignment/login', passport.authenticate('local'), login);
+app.post('/api/assignment/logout', logout);
+app.post('/api/assignment/register', register);
+app.get('/api/assignment/loggedin', loggedin);
 
-app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
 app.get('/auth/assignment/facebook/callback',
     passport.authenticate('facebook', {
         successRedirect: '/profile',
@@ -73,16 +73,15 @@ function facebookStrategy(token, refreshToken, profile, done) {
                 return done(err);
             }
         }).then(
-            function (user) {
-                return done(null, user);
-            }, function (err) {
-                if (err) {
-                    return done(err);
-                }
+        function (user) {
+            return done(null, user);
+        }, function (err) {
+            if (err) {
+                return done(err);
             }
-        );
+        }
+    );
 }
-
 
 
 function register(req, res) {
@@ -98,7 +97,7 @@ function register(req, res) {
         })
 }
 
-function authorized (req, res, next) {
+function authorized(req, res, next) {
     if (!req.isAuthenticated()) {
         res.sendStatus(401);
     } else {
@@ -143,7 +142,7 @@ function logout(req, res) {
 function loggedin(req, res) {
 
     console.log(req.user);
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         console.log("is logged in ");
         res.json(req.user);
     } else {
@@ -212,22 +211,22 @@ function findAllUsers(req, res) {
     console.log("serverside", username);
 
 
-    if(username && password) {
+    if (username && password) {
         userModel
             .findUserByCredentials(username, password)
             .then(function (user) {
-                if(user) {
+                if (user) {
                     res.json(user);
                 } else {
                     res.sendStatus(404);
                 }
             });
-    } else if(username) {
+    } else if (username) {
         console.log("got to here");
         userModel
             .findUserByUsername(username)
             .then(function (user) {
-                if(user) {
+                if (user) {
                     res.json(user);
                 } else {
                     res.sendStatus(404);
