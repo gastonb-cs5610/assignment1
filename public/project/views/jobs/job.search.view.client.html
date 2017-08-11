@@ -10,12 +10,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#!/profile">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#!/about">Home</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#!/profile">Profile</a>
             </li>
             <li class="nav-item">
@@ -25,8 +19,23 @@
     </div>
 </nav>
 
+<form class="navbar-form cl-search">
+    <div class="form-group" style="display:inline;">
+        <div class="input-group">
+            <input type="text" class="form-control" id="search" placeholder="Search for event by words...">
+            <span class="input-group-addon"><span><i class="fa fa-search" aria-hidden="true"></i></span></span>
+        </div>
+    </div>
+    <input ng-model="model.date" type="date" class="form-control cl-register-options"
+           id="date" required>
+</form>
+
+<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+
+<hr>
+
 <div class="container-fluid">
-    <ul class="list-group cl-list">
+    <ul class="list-group cl-search">
         <li class="active">
             <div class="row">
                 <div class="col-9 col-lg-3">
@@ -38,14 +47,14 @@
                 </div>
 
                 <div class="col-2 hidden-md-down">
-                    <p class="cl-register-options"><b>Status</b></p>
+                    <p class="cl-register-options"><b>Location</b></p>
                 </div>
 
                 <div class="col-3 hidden-md-down">
-                    <p class="cl-register-options"><b>Interested</b></p>
+                    <p class="cl-register-options"><b>Compensation</b></p>
                 </div>
                 <div class="col-xs-2">
-                    <p class="cl-register-options"><b>Manage</b></p>
+                    <p class="cl-register-options"><b>Apply</b></p>
                 </div>
             </div>
         </li>
@@ -58,20 +67,23 @@
                     </a>
                 </div>
                 <div class="col-sm-2 hidden-md-down">
-                    <p class="cl-list-font">{{job.dateCreated | date : 'shortDate'}}</p>
+                    <p class="cl-list-font">{{job.date | date : 'shortDate'}}</p>
                 </div>
                 <div class="col-2 hidden-md-down">
-                    <p class="cl-list-font">{{job.status}}</p>
+                    <p class="cl-list-font">{{job.zip}}</p>
                 </div>
                 <div class="col-3 hidden-md-down">
-                    <p class="cl-list-font">{{job.interested.length}}</p>
+                    <p class="cl-list-font">{{job.compensation}}</p>
                 </div>
                 <div class="col-xs-2">
-                    <a href="#"><span><i class="fa fa-user-o fa-2x" aria-hidden="true"></i></span></a>
-                    <a href="#!/edit-job/{{job._id}}"><span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span></a>
+                    <a href="#!/job-view/{{job._id}}">
+                        <span><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
+                        </span></a>
                 </div>
             </div>
         </li>
     </ul>
+</div>
 
-</div>  <!-- end of container -->
+
+

@@ -1,10 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand nav-link" href="#">Captured.</a>
 
-</body>
-</html>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#!/profile">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/about">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/profile">Profile</a>
+            </li>
+            <li ng-if="model.currentUser != ''" class="nav-item">
+                <a class="nav-link" href="#!/profile">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Content Section -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="lead section-lead">Make Changes Below.</p>
+
+                <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+                <div ng-show="model.updated" class="alert alert-info" role="alert">{{model.updated}}</div>
+
+                <form class="cl-form-bottom-padding">
+                    <label class="cl-register-label" for="username">Username</label>
+                    <p ng-model="model.user.username"
+                       id="username">{{model.user.username}}</p>
+                    <label class="cl-register-label" for="email">Email</label>
+                    <input ng-model="model.user.email"
+                           type="email"
+                           class="form-control cl-register-options"
+                           placeholder="add email"
+                           id="email" required>
+                    <label class="cl-register-label" for="fName">Name</label>
+                    <input ng-model="model.user.firstName"
+                           type="text"
+                           class="form-control cl-register-options"
+                           placeholder="first name"
+                           id="fName" required>
+                    <label class="cl-register-label" for="phone">Phone Number</label>
+                    <input ng-model="model.user.phone" type="tel" class="form-control cl-register-options"
+                           placeholder="#"
+                           id="phone" required>
+                    <label class="cl-register-label" for="location">Zip Code</label>
+                    <input ng-model="model.user.location" type="text" class="form-control cl-register-options"
+                           placeholder="#"
+                           id="location" required>
+                    <label class="cl-register-label" for="description">Describe yourself.</label>
+                    <textarea ng-model="model.user.description" class="form-control" id="description" rows="3"></textarea>
+
+                    <fieldset class="form-group">
+                        <legend class="cl-register-label">What device do you own:</legend>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio"
+                                       ng-model="model.user.device"
+                                       class="form-check-input"
+                                       name="deviceType"
+                                       id="iOS"
+                                       value="IPHONE"
+                                       checked>
+                                <p class="cl-register-options">iPhone</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio"
+                                       ng-model="model.user.device"
+                                       class="form-check-input"
+                                       name="deviceType"
+                                       id="Android"
+                                       value="ANDROID">
+                                <p class="cl-register-options">Android</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio"
+                                       ng-model="model.user.device"
+                                       class="form-check-input"
+                                       name="deviceType"
+                                       id="Both"
+                                       value="BOTH">
+                                <p class="cl-register-options">Both iPhone and Android</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio"
+                                       ng-model="model.user.device"
+                                       class="form-check-input"
+                                       name="deviceType"
+                                       id="Other"
+                                       value="OTHER">
+                                <p class="cl-register-options">Other</p>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <legend class="cl-register-label">Which apps are you interested in:</legend>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox"
+                                       ng-model="model.apps.INSTAGRAM"
+                                       class="form-check-input"
+                                       id="instagram"
+                                       value="INSTAGRAM"
+                                       checked>
+                                <p class="cl-register-options">Instagram</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox"
+                                       ng-model="model.apps.BOOMERANG"
+                                       class="form-check-input"
+                                       id="boomerang"
+                                       value="BOOMERANG"
+                                       checked>
+                                <p class="cl-register-options">Boomerang</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox"
+                                       ng-model="model.apps.SNAPCHAT"
+                                       class="form-check-input"
+                                       id="snapchat"
+                                       value="SNAPCHAT"
+                                       checked>
+                                <p class="cl-register-options">Snapchat</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox"
+                                       ng-model="model.apps.TWITTER"
+                                       class="form-check-input"
+                                       id="twitter"
+                                       value="TWITTER"
+                                       checked>
+                                <p class="cl-register-options">Twitter</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox"
+                                       ng-model="model.apps.FACEBOOK"
+                                       class="form-check-input"
+                                       id="facebook"
+                                       value="FACBOOK"
+                                       checked>
+                                <p class="cl-register-options">Facebook</p>
+                            </label>
+                        </div>
+                    </fieldset>
+
+
+                    <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+                    <div ng-show="model.updated" class="alert alert-info" role="alert">{{model.updated}}</div>
+
+
+
+                    <a ng-click="model.updateUser(model.user, model.apps)" class="btn btn-outline-primary btn-block">Update</a>
+                    <a href ='#!/profile/{{model.user.username}}' class="btn btn-outline-secondary btn-block">View Profile</a>
+                    <a href='#!/profile' class="btn btn-outline-danger btn-block">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -14,21 +14,16 @@ module.exports = pageModel;
 
 
 function removeWidget(pageId, widgetId) {
-    console.log(pageId, widgetId, "DELETING")
     return pageModel
         .findById(pageId)
         .then(function (page) {
-            console.log(page);
             var index = page.widgets.indexOf(widgetId);
             page.widgets.splice(index, 1);
-            console.log(page);
-
             return page.save();
         });
 }
 
 function addWidget(pageId, widgetId) {
-    console.log("adding widget", pageId, widgetId);
     return pageModel
         .findById(pageId)
         .then(function (page) {

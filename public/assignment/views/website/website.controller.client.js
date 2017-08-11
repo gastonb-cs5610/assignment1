@@ -9,8 +9,6 @@
         var vm = this;
         vm.userId = currentUser._id;
 
-        console.log("loaded list controller");
-
         function init() {
             WebsiteService
                 .findWebsitesByUser(vm.userId)
@@ -20,7 +18,6 @@
         init();
 
         function renderWebsites(websites) {
-            console.log("here in render websites:", websites);
             vm.websites = websites;
         }
 
@@ -31,7 +28,6 @@
         vm.userId = currentUser._id;
 
         function init() {
-            console.log("init");
             WebsiteService
                 .findWebsitesByUser(vm.userId)
                 .then(renderWebsiteList, errorMsg);
@@ -45,7 +41,6 @@
         }
 
         function renderWebsiteList(websites) {
-            console.log("rendering list");
             vm.websites = websites;
         }
 
@@ -95,12 +90,10 @@
         init();
 
         function renderWebsiteList(websites) {
-            console.log("rendering list");
             vm.websites = websites;
         }
 
         function renderWebsite(website) {
-            console.log("render...")
             vm.website = website;
         }
 

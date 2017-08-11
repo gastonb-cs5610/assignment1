@@ -1,0 +1,59 @@
+<!-- Content Section -->
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand nav-link" href="#">Captured.</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#!/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/profile">Profile</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="section-heading">{{model.user.username}}</h1>
+                <p class="lead section-lead" ng-if="model.user.type == 'TAKER'">{{model.user.firstName}}: Social Media Specialist near:
+                    {{model.user.location}}.</p>
+                <p class="lead section-lead" ng-if="model.user.type == 'SEEKER'">Located near:
+                    {{model.user.location}}.</p>
+                <p class="lead section-lead" ng-if="model.user.type == 'TAKER'">User since: {{model.date}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="cl-register-label">Apps</p>
+        <div class="col-lg-12 form-inline">
+            <i ng-if="model.user.apps.indexOf('SNAPCHAT') > -1" class="fa fa-snapchat fa-3x" aria-hidden="true"></i>
+            <i ng-if="model.user.apps.indexOf('FACEBOOK') > -1" class="fa fa-facebook-square fa-3x" aria-hidden="true"></i>
+            <i ng-if="model.user.apps.indexOf('INSTAGRAM') > -1" class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+            <i ng-if="model.user.apps.indexOf('BOOMERANG') > -1" class="fa fa-chevron-circle-up fa-3x"
+               aria-hidden="true"></i>
+            <i ng-if="model.user.apps.indexOf('TWITTER') > -1" class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="cl-register-label">Devices</p>
+        <div class="col-lg-12 form-inline">
+            <i ng-if="model.user.device == 'ANDROID' || 'BOTH'" class="fa fa-android fa-3x" aria-hidden="true"></i>
+            <i ng-if="model.user.device == 'IPHONE' || 'BOTH'" class="fa fa-apple fa-3x" aria-hidden="true"></i>
+        </div>
+    </div>
+</section>
+

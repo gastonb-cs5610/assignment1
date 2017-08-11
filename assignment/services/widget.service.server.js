@@ -27,28 +27,6 @@ function moveWidget(req, res) {
     var start = req.query.start;
     var end = req.query.end;
 
-    // var page = findItemsByParent(pageId);
-    //
-    // // order widgets by position
-    // page.sort(function(a, b) {
-    //     return parseInt(a.position) - parseInt(b.position);
-    // });
-
-    // var toMoveWidget = page[start];
-    //
-    // console.log(start, end, toMoveWidget);
-    //
-    //
-    // if (toMoveWidget === undefined) {
-    //     res.sendStatus(404);
-    // }
-    // if (start != end) {
-    //     reOrderArray(start, end, page);
-    // }
-    //
-    // res.sendStatus(200);
-
-
     widgetModel
         .reorderWidget(pageId, start, end)
         .then(function (page) {
@@ -123,8 +101,6 @@ function deleteWidget(req, res) {
     var widgetId = req.params.widgetId;
     var pageId = req.params.pageId;
 
-    console.log(widgetId);
-
     widgetModel
         .deleteWidget(pageId, widgetId)
         .then(
@@ -157,15 +133,6 @@ function findWidgetsByPage(req, res) {
     var pageId = req.params.pageId;
     widgetModel.findAllWidgetsForPage(pageId)
         .then(function (widgets) {
-            console.log("SERVER SERVICE", widgets);
-            // for (i = 0; i < widgets.length; i++) {
-            //     widgetModel
-            //         .findWidgetById(widgets[i])
-            //         .then(function (widget) {
-            //             widgets[i] = widget;
-            //         });
-            // }
-            console.log(widgets);
             res.send(widgets);
         }, function (err) {
             res.status(404).send(' Widgets not found ');
@@ -186,42 +153,3 @@ function createWidget(req, res) {
             }
         )
 }
-
-
-// function rePositionAfterDelete(position, pageId) {
-//     var result = findItemsByParent(pageId);
-//
-//     result.sort(function(a, b) {
-//         return parseInt(a.position) - parseInt(b.position);
-//     });
-//
-//     var i = position;
-//
-//     for (i = position; i < result.length; i++) {
-//         result[i].position = i;
-//     }
-//
-// }
-
-// function reOrderArray(start, end, array) {
-//     var movingItem = array[start];
-//
-//     if (start < end) {
-//
-//         for (i = start + 1; i <= end; i++) {
-//             array[i - 1] = array[i];
-//         }
-//     } else if (start > end) {
-//
-//         for (i = start; i >= end + 1; i--) {
-//             array[i] = array[i - 1];
-//         }
-//     }
-//     array[end] = movingItem;
-//
-//     //set new orders
-//     for(i = 0; i < array.length; i++) {
-//         item = array[i];
-//         item.position = i;
-//     }
-// }

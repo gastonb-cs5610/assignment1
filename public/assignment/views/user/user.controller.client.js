@@ -6,7 +6,6 @@
         .controller("ProfileController", ProfileController);
 
     function LoginController($location, UserService) {
-
         var vm = this;
         vm.login = login;
 
@@ -37,9 +36,6 @@
         vm.register = register;
 
         function register(mUser) {
-
-            console.log("called register")
-
             if (mUser.username === undefined || mUser.username === null || mUser.username === ""
                 || mUser.password === undefined || mUser.password === "") {
                 vm.error = "Username and Passwords cannot be empty.";
@@ -53,7 +49,6 @@
             UserService
                 .findUserByUsername(mUser.username)
                 .then(function () {
-                        console.log("error");
                         vm.error = "Username already exists.";
                     }, function () {
                         var newUser = {

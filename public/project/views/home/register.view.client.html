@@ -52,6 +52,10 @@
                     <input ng-model="model.user.phone" type="tel" class="form-control cl-register-options"
                            placeholder="#"
                            id="phone" required>
+                    <label class="cl-register-label" for="location">Zip Code</label>
+                    <input ng-model="model.user.location" type="text" class="form-control cl-register-options"
+                           placeholder="#"
+                           id="location" required>
                     <label class="cl-register-label" for="description">Describe yourself.</label>
                     <textarea ng-model="model.user.description" class="form-control" id="description" rows="3"></textarea>
 
@@ -162,7 +166,7 @@
                             </label>
                         </div>
                     </fieldset>
-                    <button type="submit" ng-click="model.register()" class="btn btn-primary">Submit</button>
+                    <a href = "" ng-click="model.register()" class="btn btn-outline-success btn-block cl-register-btn">Register</a>
                 </form>
 
                 <p class="section-paragraph"></p>

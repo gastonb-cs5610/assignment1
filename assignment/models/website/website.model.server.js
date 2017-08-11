@@ -28,6 +28,7 @@ function deleteWebsiteFromUser(userId, websiteId) {
                 .deleteWebsite(userId, websiteId);
         });
 }
+
 function findAllWebsitesForUser(userId) {
     return websiteModel
         .find({_user: userId})
@@ -37,8 +38,6 @@ function findAllWebsitesForUser(userId) {
 
 function createWebsiteForUser(userId, website) {
     website._user = userId;
-
-    console.log("adding", website);
 
     return websiteModel
         .create(website)

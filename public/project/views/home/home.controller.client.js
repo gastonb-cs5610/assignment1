@@ -31,9 +31,21 @@
 
     }
 
-    function HomeController($location, HomeService) {
+    function HomeController($location, HomeService, currentUser) {
         var vm = this;
+        currentUser._id = currentUser._id;
+        vm.logout = logout;
         vm.collectData = collectData;
+
+        function logout() {
+            HomeService
+                .logout()
+                .then(function () {
+                    $location.url('/');
+                })
+
+        }
+
 
         function collectData(user, vPassword) {
 
@@ -75,7 +87,6 @@
             vm.user.apps = [];
             for (var property in vm.apps) {
                 if (vm.apps.hasOwnProperty(property)) {
-                    console.log(property);
                     vm.user.apps.push(property);
                 }
             }
@@ -83,10 +94,8 @@
             HomeService
                 .findUserByUsername(vm.user.username)
                 .then(function () {
-                        console.log("error");
                         vm.error = "Username already exists.";
                     }, function () {
-                        console.log("goign to get");
                         var newUser = vm.user;
                         return HomeService
                             .register(newUser)

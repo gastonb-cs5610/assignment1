@@ -30,7 +30,6 @@ function deleteWebsite(userId, websiteId) {
 }
 
 function addWebsite(userId, websiteId) {
-    console.log("adding site", userId, websiteId);
     return userModel
         .findById(userId)
         .then(function (user) {

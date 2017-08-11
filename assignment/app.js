@@ -12,8 +12,6 @@ module.exports = function(){
         connectionString = 'mongodb://assignment:test@ds055495.mlab.com:55495/bgwebdev';
     }
 
-    console.log(connectionString);
-
     mongoose.Promise = require('q').Promise;
     mongoose.connect(connectionString);
 

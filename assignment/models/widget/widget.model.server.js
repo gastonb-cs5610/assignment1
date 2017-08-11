@@ -25,11 +25,9 @@ function addUrlToImage(widgetId, url) {
 
 function createWidget(pageId, widget) {
     widget._page = pageId;
-    console.log("create,", widget);
     return widgetModel
         .create(widget)
         .then(function (widget) {
-            console.log(widget);
             pageModel
                 .addWidget(pageId, widget._id)
             return widget;
@@ -122,7 +120,6 @@ function updateWidget(widgetId, widget) {
             );
             break;
         default:
-            console.log(widget);
     }
 }
 
@@ -153,10 +150,7 @@ function reorderWidget(pageId, start, end) {
     return pageModel
         .findPageById(pageId)
         .then(function (page) {
-            console.log("PAGE", page);
             var item = page.widgets[start];
-            console.log("ITEM IS", item);
-
             if (page) {
                 page.widgets.splice(start, 1);
                 page.widgets.splice(end, 0, item);

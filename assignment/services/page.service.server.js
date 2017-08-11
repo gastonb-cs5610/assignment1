@@ -19,8 +19,6 @@ function updatePage(req, res) {
         .then(function (status) {
             res.send(status);
         })
-
-
 }
 
 function deletePage(req, res) {

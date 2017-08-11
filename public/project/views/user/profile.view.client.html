@@ -1,11 +1,50 @@
 <!-- Content Section -->
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand nav-link" href="#">Captured.</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#!/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#!/">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <section>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="section-heading">Hello, {{}}</h1>
-                <p class="lead section-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                <p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                <h1 class="section-heading">Hello, {{model.user.firstName}}</h1>
+                <p ng-if="model.user.type == 'SEEKER'"class="lead section-lead">Let us capture your next event, click 'Post Job' to
+                    get matched with a local social media specialist. They'll capture your party or event so you can focus on
+                    having a good time. From pool parties to an added touch at a wedding, from small gatherings, to
+                    bringing down the roof, we'll find someone to keep your social media trending, while you get
+                    to <b>stay social</b>.</p>
+
+                <p ng-if="model.user.type == 'TAKER'"class="lead section-lead">Thank you for joining us as a social media
+                    specialist! Make your own schedule and work while doing something you love, and something everyone enjoys.
+                    As a specialist it will be in your hands to capture special moments and preserve the details of an event.
+                    You will be in charge of posting on behalf of the event. This can include anything from stories to
+                    creating hashtags. You will be the social media coordinator. Candid photography is making a comeback!
+                </p>
+
+                <a ng-if="model.user.type == 'SEEKER'" href = "#!/post-job" class="btn btn-outline-success btn-block cl-register-btn">Post Job</a>
+                <a ng-if="model.user.type == 'TAKER'" href = "#!/find-job" class="btn btn-outline-success btn-block cl-register-btn">Find Job</a>
+                <a href = "#!/job-list" class="btn btn-outline-success btn-block cl-register-btn">Manage Your Events</a>
+                <a href = "#!/profile/{{model.user.username}}" class="btn btn-outline-success btn-block cl-register-btn">View Your Profile</a>
+                <a href = "#!/edit-profile" class="btn btn-outline-success btn-block cl-register-btn">Edit Your Profile</a>
+                <a href = "" ng-click="model.logout()" class="btn btn-outline-danger btn-block cl-register-btn">Logout</a>
+
             </div>
         </div>
     </div>

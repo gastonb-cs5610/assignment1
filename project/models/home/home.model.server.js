@@ -9,11 +9,34 @@ homeModel.findUserByUsername = findUserByUsername;
 homeModel.findUserByCredentials = findUserByCredentials;
 homeModel.updateUser = updateUser;
 homeModel.deleteUser = deleteUser;
+homeModel.deleteJob = deleteJob;
+homeModel.addJob = addJob;
+
+
 
 module.exports = homeModel;
 
+function deleteJob(userId, jobId) {
+    return homeModel
+        .findById(userId)
+        .then(function (user) {
+            var index = user.jobs.indexOf(jobId);
+            user.jobs.splice(index, 1);
+            return user.save();
+        });
+}
+
+function addJob(userId, jobId) {
+    console.log("adding a job");
+    return homeModel
+        .findById(userId)
+        .then(function (user) {
+            user.jobs.push(jobId);
+            return user.save();
+        });
+}
+
 function createUser(user) {
-    console.log("in create");
     return homeModel.create(user);
 }
 
@@ -26,7 +49,6 @@ function findAllUsers() {
 }
 
 function findUserByUsername(username) {
-    console.log("in Model", username);
     return homeModel.findOne({username: username});
 }
 
@@ -37,12 +59,7 @@ function findUserByCredentials(username, password) {
 function updateUser(userId, user) {
     return homeModel.update(
         {_id: userId},
-        {$set:
-            {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email
-            }}
+        {$set: user}
     );
 }
 

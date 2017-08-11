@@ -44,14 +44,11 @@
         }
 
         function login(username, password) {
-            console.log("trying")
             var url = "/api/assignment/login";
             var credentials = {
                 username : username,
                 password : password
             };
-
-            console.log(credentials, "credentials");
 
             return $http.post(url, credentials)
                 .then(function (response) {
@@ -79,7 +76,6 @@
 
         function findUserById(userId) {
             var url = "/api/assignment/user/" + userId;
-            console.log(url);
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
@@ -88,10 +84,8 @@
 
         function findUserByUsername(username) {
             var url = "/api/assignment/user?username=" + username;
-            console.log("in client server", username);
             return $http.get(url)
                 .then(function (response) {
-                    console.log("wut", response);
                     return response.data;
                 });
         }

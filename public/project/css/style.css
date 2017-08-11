@@ -23,3 +23,33 @@
     font-weight: 300;
     margin: 0px;
 }
+
+.cl-list {
+    padding-top: 30px;
+    margin: 50px;
+    list-style-type: none;
+}
+
+.cl-search {
+    padding-bottom: 20px;
+    padding-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 0;
+    list-style-type: none;
+}
+
+.cl-list-row {
+    padding-top: 10px;
+}
+
+.cl-list-font {
+    font-size: 15px;
+    font-weight: 300;
+    align-content: center;
+}
+
+.cl-search-list {
+    padding:90px;
+    padding-top: 30px;
+}

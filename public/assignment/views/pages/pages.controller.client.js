@@ -32,11 +32,9 @@
 
         function createPage(newPage) {
 
-            console.log("controller");
-
             if (!newPage || newPage.title === undefined || newPage.title === null || newPage.title === ""
                 || newPage.name === name || newPage.name === "" || newPage.name === null) {
-                console.log("errore");
+
                 vm.error = "Please enter the required fields.";
                 return;
             }

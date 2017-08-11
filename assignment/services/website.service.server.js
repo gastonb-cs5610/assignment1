@@ -25,8 +25,6 @@ function deleteWebsite(req, res) {
     var websiteId = req.params.websiteId;
     var userId = req.params.userId;
 
-    console.log("deletewebsite", userId);
-
     websiteModel
         .deleteWebsiteFromUser(userId, websiteId)
         .then(function (status) {
@@ -42,7 +40,6 @@ function findWebsiteById(req, res) {
     websiteModel
         .findWebsiteById(websiteId)
         .then(function (website) {
-            console.log(website, "site");
             res.json(website);
     });
 }
@@ -62,7 +59,6 @@ function createWebsite(req, res) {
     websiteModel
         .createWebsiteForUser(req.params.userId, website)
         .then(function (user) {
-            console.log(user);
             res.json(user);
         }, function (err) {
             res.send(err);

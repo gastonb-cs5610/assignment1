@@ -64,7 +64,6 @@
             WidgetService
                 .createWidget(vm.pid, newWidget)
                 .then(function (widget) {
-                    console.log("in controller", widget);
                     $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widget._id);
                 });
         }
@@ -125,8 +124,6 @@
                     return;
                 }
             }
-
-            console.log("latest", latestData);
 
             WidgetService
                 .updateWidget($routeParams.wgid, latestData)

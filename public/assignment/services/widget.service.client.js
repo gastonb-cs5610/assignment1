@@ -36,10 +36,10 @@
             var url = "/api/assignment/page/" +pageId+ "/widget/moveWidget?start=" + start + "&end=" + end;
 
 
-            console.log(url, "URL");
+            ""(url, "URL");
 
 
-            console.log(pageId, "page in client");
+            ""(pageId, "page in client");
             return $http.put(url)
                 .then(function (response) {
                     return response.data;
@@ -93,7 +93,7 @@
         }
 
         function createYouTubeWidget(pageId, widget) {
-            console.log("createYoutube", widget);
+            ""("createYoutube", widget);
 
             return {
                 type: 'YOUTUBE',
@@ -115,12 +115,12 @@
         }
 
         function createWidget(pageId, widget) {
-            console.log("widget:", widget);
+            ""("widget:", widget);
             var newWidget = createWidgetMap[widget.type](pageId, widget);
             var url = "/api/assignment/page/" + pageId + "/widget";
             return $http.post(url, newWidget)
                 .then(function (response) {
-                    console.log("widget create");
+                    ""("widget create");
 
                     return response.data;
                 });
@@ -137,7 +137,7 @@
 
         function findWidgetById(widgetId) {
             var url = "/api/assignment/widget/" + widgetId;
-            console.log("going");
+            ""("going");
 
             return $http.get(url)
                 .then(function (response) {

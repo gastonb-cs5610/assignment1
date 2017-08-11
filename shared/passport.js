@@ -17,9 +17,7 @@ function localStrategy2(username, password, done) {
     homeModel
         .findUserByUsername(username)
         .then(function (user) {
-            console.log(user);
             if (user && bcrypt.compareSync(password, user.password)) {
-                console.log("here");
                 return done(null, user);
             } else {
                 return done(null, false);
@@ -30,14 +28,12 @@ function localStrategy2(username, password, done) {
 }
 
 function localStrategy(username, password, done) {
-    console.log("homo");
 
     userModel
         .findUserByUsername(username, password)
         .then(
             function (user) {
                 if (user) {
-                    console.log("in here");
                     if (user.password && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     }
@@ -50,8 +46,6 @@ function localStrategy(username, password, done) {
                 }
             },
             function (err) {
-                console.log("herwe");
-
                 if (err) {
                     return done(err);
                 }
@@ -77,7 +71,6 @@ function deserializeUser(user, done) {
                 }
             );
     } else {
-        console.log("well here we are.")
         userModel
             .findUserById(user._id)
             .then(

@@ -13,8 +13,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="#!/about">About</a>
             </li>
-            <li class="nav-item">
+            <li ng-if="!model.currentUser._id" class="nav-item">
                 <a class="nav-link" href="#!/login">Login</a>
+            </li>
+            <li ng-if="model.currentUser._id" class="nav-item">
+                <a class="nav-link" href="#!/profile">Profile</a>
+            </li>
+            <li ng-if="model.currentUser._id" class="nav-item">
+                <a class="nav-link" href="#" ng-click="model.logout()">Logout</a>
             </li>
         </ul>
     </div>
@@ -32,7 +38,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
-                <h1 class="section-heading">Get Started.</h1>
+                <h1 class="section-heading">Get Started. </h1>
 
                 <form action="">
                     <input ng-model="model.user.type" type="radio" name="Selection" id="Taker" value="TAKER">
