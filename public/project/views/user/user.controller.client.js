@@ -3,7 +3,63 @@
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController)
         .controller("DisplayController", DisplayController)
+        .controller("ListController", ListController)
         .controller("EditController", EditController);
+
+    function ListController($routeParams, HomeService, JobService) {
+        var vm = this;
+        vm.jobId = $routeParams.jobId;
+        vm.userList = [];
+        vm.select = select;
+        vm.remove = remove;
+
+        function init() {
+            JobService
+                .findJobById(vm.jobId)
+                .then(getUserList,
+                    function (status) {
+                    vm.error = "Job not found."
+                });
+        }
+        init();
+
+        function getUserList(job) {
+            vm.job = job;
+            vm.users = job.interested;
+            var len = vm.users.length;
+            for (var i = 0; i < len; i++) {
+                HomeService
+                    .findUserById(vm.users[i])
+                    .then(function (user) {
+                        vm.userList.push(user);
+                    })
+            }
+
+        }
+
+        function select(userId) {
+            vm.job.photographer = userId;
+            vm.job.status = 'MATCHED';
+            JobService
+                .updateJob(vm.jobId, vm.job)
+                .then(function () {
+                    vm.photographer = userId;
+                })
+
+        }
+
+        function remove() {
+            JobService
+                .removePhotographer(vm.jobId)
+                .then(function (job) {
+                    vm.job = job;
+                })
+
+        }
+
+
+
+    }
 
     function EditController(currentUser, UserService, $timeout) {
         var vm = this;
@@ -15,6 +71,7 @@
             for (var i = 0; i < len; i++) {
                 var name = vm.user.apps[i];
                 vm.apps[name] = true;
+
             }
         }
 

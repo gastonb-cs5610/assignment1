@@ -34,7 +34,7 @@
                 <p class="lead section-lead">Description: {{model.job.description}}</p>
                 <p class="lead section-lead">{{model.job.compensation}}</p>
 
-                <a ng-click="model.Appy()" ng-if="model.checkIfOwned()" class="btn btn-outline-primary btn-block">Apply to Event</a>
+                <a ng-click="model.apply()" ng-if="!model.applied" class="btn btn-outline-primary btn-block">Apply to Event</a>
                 <a href="#!/profile/{{model.owner}}" class="btn btn-outline-primary btn-block">View Host</a>
                 <a href="#!/find-job" class="btn btn-outline-primary btn-block">Back</a>
             </div>

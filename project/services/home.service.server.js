@@ -10,12 +10,31 @@ var bcrypt = require("bcrypt-nodejs");
 app.post  ('/api/project/register',  register);
 app.post('/api/project/login', passport.authenticate('project'), login);
 
+app.put('app/project/addInsta', addInsta);
+
 app.post('/api/project/logout', logout);
 app.get('/api/project/user', findAllUsers);
 app.get('/api/project/loggedin', loggedin);
 app.get('/api/project/user/:userId', findUserById);
 
+app.get('/auth/instagram/',
+    passport.authorize('instagram'),
+    function(req, res){});
+app.get('/auth/instagram/callback',
+    passport.authorize('instagram', { failureRedirect: '/' }),
+    renderInsta);
 
+function renderInsta(req, res) {
+    var token = req.user.accessToken;
+    //TODO: HOW DO I GET THIS!!?!?!
+    res.redirect('https://api.instagram.com/v1/users/self/media/recent/access_token='+ token);
+}
+
+
+
+function addInsta(req, res) {
+    console.log("hello");
+}
 
 function findUserById(req, res) {
     var userId = req.params['userId'];

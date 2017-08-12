@@ -30,50 +30,34 @@
         <li class="active">
             <div class="row">
                 <div class="col-9 col-lg-3">
-                    <p class="cl-register-options"><b>Name</b></p>
-                </div>
-
-                <div class="col-sm-2 hidden-md-down">
-                    <p class="cl-register-options"><b>Date</b></p>
-                </div>
-
-                <div class="col-2 hidden-md-down">
-                    <p class="cl-register-options"><b>Status</b></p>
-                </div>
-
-                <div class="col-3 hidden-md-down">
-                    <p class="cl-register-options"><b>Interested</b></p>
+                    <p class="cl-register-options"><b>User</b></p>
                 </div>
                 <div class="col-xs-2">
-                    <p class="cl-register-options"><b>Manage</b></p>
+                    <p class="cl-register-options"><b>Choose</b></p>
                 </div>
             </div>
         </li>
 
-        <li ng-repeat="job in model.jobsList">
+        <li ng-repeat="user in model.userList">
             <div class="row cl-list-row">
                 <div class="col-9 col-lg-3">
-                    <a href="#">
-                        <p class="cl-list-font">{{job.name}}</p>
+                    <a href="#!/profile/{{user.username}}">
+                        <p class="cl-list-font">{{user.username}}</p>
                     </a>
                 </div>
-                <div class="col-sm-2 hidden-md-down">
-                    <p class="cl-list-font">{{job.dateCreated | date : 'shortDate'}}</p>
-                </div>
-                <div class="col-2 hidden-md-down">
-                    <p class="cl-list-font">{{job.status}}</p>
-                </div>
-                <div class="col-3 hidden-md-down">
-                    <p class="cl-list-font">{{job.interested.length}}</p>
-                </div>
                 <div class="col-xs-2">
-                    <a href="#!/interested-users/{{job._id}}"><span><i class="fa fa-user-o fa-2x" aria-hidden="true"></i></span></a>
-                    <a href="#!/edit-job/{{job._id}}"><span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span></a>
+                    <a ng-click="model.remove(user._id)" ng-if="model.job.photographer === user._id"
+                       title="Remove photographer."><span><i class="fa fa-times fa-2x"
+                                                             aria-hidden="true"></i></span></a>
+                    <a ng-click="model.select(user._id)" ng-if="!(model.job.photographer === user._id)"
+                       title="Choose photographer."><span><i class="fa fa-check-square fa-2x"
+                                                             aria-hidden="true"></i><span></a>
                 </div>
             </div>
         </li>
     </ul>
-    <a href='#!/profile' class="btn btn-outline-danger btn-block">Back</a>
+
+    <a href='#!/job-list' class="btn btn-outline-danger btn-block">Back</a>
 
 
 </div>  <!-- end of container -->

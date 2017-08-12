@@ -28,7 +28,6 @@
                     return response.data;
                 });
         }
-
         function findUserById(userId) {
             var url = "/api/project/user/" + userId;
             return $http.get(url)

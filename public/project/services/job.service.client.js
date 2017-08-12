@@ -10,9 +10,19 @@
             'findAllJobs': findAllJobs,
             'createJob': createJob,
             'updateJob': updateJob,
+            'removePhotographer': removePhotographer,
             'deleteJob': deleteJob
         };
         return services;
+
+        function removePhotographer(jobId) {
+            var url = '/api/project/removePhotographer/' + jobId;
+            return $http.put(url)
+                .then(function (response) {
+                    return response.data;
+                })
+
+        }
 
         function findJobById(jobId) {
             var url = '/api/project/job/' + jobId;

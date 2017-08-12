@@ -1,7 +1,14 @@
+const app = require('../express');
+
 var passport = require('passport');
 var bcrypt = require("bcrypt-nodejs");
 
 passport.serializeUser(serializeUser);
+
+
+var InstagramStrategy = require('passport-instagram').Strategy;
+
+
 function serializeUser(user, done) {
     done(null, user);
 }
@@ -11,6 +18,13 @@ var LocalStrategy = require('passport-local').Strategy;
 passport.use('local', new LocalStrategy(localStrategy));
 
 passport.use('project', new LocalStrategy(localStrategy2));
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+app.get('/auth/assignment/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/profile',
+        failureRedirect: '/login'
+    }));
 
 
 function localStrategy2(username, password, done) {
@@ -56,6 +70,8 @@ function localStrategy(username, password, done) {
 
 var userModel = require('../assignment/models/user/user.model.server');
 var homeModel = require('../project/models/home/home.model.server');
+var instaModel = require('../project/models/instagram/insta.model.server');
+
 
 passport.deserializeUser(deserializeUser);
 function deserializeUser(user, done) {
@@ -97,7 +113,50 @@ var facebookConfig = {
     profileFields: ['id', 'emails', 'displayName', 'name']
 };
 
+var instagramConfig = {
+    clientID: '5fb9dd6c97da4a89925dad9c62e91947',
+    clientSecret: 'fdec21f646884155b73e428133aec67e',
+    callbackURL: 'http://localhost:3000/auth/instagram/callback',
+    passReqToCallback: true
+};
+
 passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+passport.use(new InstagramStrategy(instagramConfig, instagramStrategy));
+
+
+function instagramStrategy(req, accessToken, refreshToken, profile, done) {
+    var signedIn = req.user;
+
+    homeModel
+        .findOne({authID: profile.id}, function (err, user) {
+            if (err) {
+                console.log(err);  // handle errors!
+            }
+            if (!err && user !== null) {
+                done(null, user);
+            } else {
+                console.log("USERFIRST", user);
+                console.log("PROFILE", profile);
+
+                // user = {
+                //     authID: profile.id,
+                //     username: profile.username,
+                //     accessToken: accessToken
+                // };
+
+                signedIn.authID = profile.id;
+                signedIn.usernameIG = profile.username;
+                signedIn.accessToken = accessToken;
+
+                signedIn.save()
+                    .then(function () {
+                    console.log("MADE IT");
+                    done(null, signedIn);
+                });
+            }
+        });
+}
 
 
 function facebookStrategy(token, refreshToken, profile, done) {

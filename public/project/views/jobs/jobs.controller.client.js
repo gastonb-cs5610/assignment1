@@ -8,18 +8,33 @@
         .controller("EditJobController", EditJobController);
 
 
-    function DisplayJobController($routeParams, JobService, HomeService) {
+    function DisplayJobController($routeParams, JobService, HomeService, currentUser) {
         var vm = this;
         vm.jobId = $routeParams.jobId;
+        vm.currentUserId = currentUser._id;
+        vm.apply = apply;
+
+        function apply() {
+            vm.job.interested.push(currentUser);
+            JobService
+                .updateJob(vm.jobId, vm.job)
+                .then(function () {
+                    vm.applied = true;
+                })
+        }
 
         function init() {
             JobService
                 .findJobById(vm.jobId)
                 .then(function (job) {
                     vm.job = job
-                }).then(findOwner)}
+                }).then(findOwner);
+            vm.applied = checkIfApplied();
+
+        }
         init();
 
+        //Find Seeker who posted job.
         function findOwner() {
             console.log("here");
             HomeService
@@ -27,6 +42,21 @@
                 .then(function (user) {
                     vm.owner = user.username;
                 });
+            vm.owned = checkIfOwned();
+        }
+
+        //Check if Taker has applied for position.
+        function checkIfApplied() {
+            var len = currentUser.jobs;
+            for (var i=0; i < len; i++) {
+                if (currentUser.jobs[i] === vm.jobId) {
+                    return false;
+                }
+            }
+        }
+
+        function checkIfOwned() {
+            return (vm.currentUserId === vm.job.photographer);
         }
 
     }

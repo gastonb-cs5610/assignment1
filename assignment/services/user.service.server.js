@@ -14,12 +14,7 @@ app.post('/api/assignment/logout', logout);
 app.post('/api/assignment/register', register);
 app.get('/api/assignment/loggedin', loggedin);
 
-app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
-app.get('/auth/assignment/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect: '/profile',
-        failureRedirect: '/login'
-    }));
+
 
 app.get('/api/assignment/user', findAllUsers);
 app.get('/api/assignment/user/:userId', findUserById);

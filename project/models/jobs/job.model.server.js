@@ -11,10 +11,15 @@ jobModel.findJobById = findJobById;
 jobModel.findJobsByUser = findJobsByUser;
 jobModel.findAllJobs = findAllJobs;
 
+jobModel.removePhotographer = removePhotographer;
+
 jobModel.updateJob = updateJob;
 
 module.exports = jobModel;
 
+function removePhotographer(jobId) {
+   return jobModel.update({_id: jobId}, {$unset: {photographer: 1}});
+}
 
 function findAllJobs() {
         return jobModel.find();

@@ -176,7 +176,9 @@
                     <div ng-show="model.updated" class="alert alert-info" role="alert">{{model.updated}}</div>
 
 
-
+                    <a ng-if="(model.user.type == 'TAKER' && !model.user.usernameIG)" href="/auth/instagram" class="btn btn-primary btn-block">
+                        <span class="fa fa-instagram"></span>
+                        Add Instagram Account</a>
                     <a ng-click="model.updateUser(model.user, model.apps)" class="btn btn-outline-primary btn-block">Update</a>
                     <a href ='#!/profile/{{model.user.username}}' class="btn btn-outline-secondary btn-block">View Profile</a>
                     <a href='#!/profile' class="btn btn-outline-danger btn-block">Back</a>

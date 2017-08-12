@@ -4,7 +4,7 @@ var jobSchema = mongoose.Schema({
     _user: {type: mongoose.Schema.Types.ObjectId, ref: "HomeModel"},
     interested: [{type: mongoose.Schema.Types.ObjectId, ref: "HomeModel"}],
     photographer: {type: mongoose.Schema.Types.ObjectId, ref: "HomeModel"},
-    status: {type: String, enum: ['PENDING', 'FOUND', 'COMPLETED', 'INCOMPLETE']},
+    status: {type: String, enum: ['PENDING', 'MATCHED', 'COMPLETED', 'INCOMPLETE']},
     name : String,
     location: String,
     zip: String,

@@ -5,6 +5,14 @@
 
     function configuration($routeProvider) {
         $routeProvider
+            .when('/interested-users/:jobId', {
+                templateUrl: "views/user/list.users.view.client.html",
+                controller: "ListController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
             .when('/job-view/:jobId', {
                 templateUrl: "views/jobs/job.display.view.client.html",
                 controller: "DisplayJobController",

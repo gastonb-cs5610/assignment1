@@ -12,6 +12,19 @@ app.delete("/api/project/user/:userId/job/:jobId", auth, deleteJob);
 
 app.get("/api/project/job", findAllJobs);
 
+app.put("/api/project/removePhotographer/:jobId", removePhotographer);
+
+
+function removePhotographer(req, res) {
+    console.log("here");
+    var jobId = req.params.jobId;
+    jobModel
+        .removePhotographer(jobId)
+        .then(function (status) {
+            res.send(status);
+        })
+}
+
 function findAllJobs(req, res) {
 
     console.log("1");
@@ -32,7 +45,7 @@ function findAllJobs(req, res) {
     } else {
         jobModel
             .findAllJobs()
-            .then(function (jobs) {
+            .then(function (status) {
                 console.log(jobs);
                 res.json(jobs);
             });
