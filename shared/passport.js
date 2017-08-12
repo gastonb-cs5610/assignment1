@@ -70,7 +70,6 @@ function localStrategy(username, password, done) {
 
 var userModel = require('../assignment/models/user/user.model.server');
 var homeModel = require('../project/models/home/home.model.server');
-var instaModel = require('../project/models/instagram/insta.model.server');
 
 
 passport.deserializeUser(deserializeUser);

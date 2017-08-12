@@ -72,10 +72,7 @@
             .when('/profile/:username', {
                 templateUrl: "views/user/display.view.client.html",
                 controller: "DisplayController",
-                controllerAs: "model",
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
+                controllerAs: "model"
             })
             .when('/profile', {
                 templateUrl: "views/user/profile.view.client.html",

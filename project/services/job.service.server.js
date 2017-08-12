@@ -16,7 +16,6 @@ app.put("/api/project/removePhotographer/:jobId", removePhotographer);
 
 
 function removePhotographer(req, res) {
-    console.log("here");
     var jobId = req.params.jobId;
     jobModel
         .removePhotographer(jobId)
@@ -27,32 +26,16 @@ function removePhotographer(req, res) {
 
 function findAllJobs(req, res) {
 
-    console.log("1");
-    if (req.query['search'] !== "undefined") {
-        var resSearch = req.query['search'];
-    }
-
-    if (req.query['date'] !== "undefined") {
-        var resDate = req.query['date'];
-    }
-
-    if (resSearch && resDate) {
-        //TODO: search based on words and date
-    } else if (resSearch) {
-        //TODO: search based on date
-    } else if (resDate){
-        //TODO: search based on search
-    } else {
-        jobModel
-            .findAllJobs()
-            .then(function (status) {
-                console.log(jobs);
-                res.json(jobs);
-            });
-    }
+    jobModel
+        .findAllJobs()
+        .then(function (jobs) {
+            res.json(jobs);
+        }, function (err) {
+            console.log(err);
+        });
 }
 
-function deleteJob(req,res) {
+function deleteJob(req, res) {
 
     var jobId = req.params.jobId;
     var userId = req.params.userId;

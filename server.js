@@ -28,6 +28,8 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+var Instafeed = require("instafeed.js");
+module.exports = Instafeed;
 
 var appFn = require("./assignment/app.js");
 appFn();

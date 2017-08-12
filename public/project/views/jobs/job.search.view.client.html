@@ -22,8 +22,8 @@
 <form class="navbar-form cl-search">
     <div class="form-group" style="display:inline;">
         <div class="input-group">
-            <input type="text" class="form-control" id="search" placeholder="Search for event by words...">
-            <span class="input-group-addon"><span><i class="fa fa-search" aria-hidden="true"></i></span></span>
+            <input type="text" class="form-control" ng-model="model.searchWords"  id="search" placeholder="Search for event by words...">
+            <a ng-click="model.search()"><span ng-click="model.search()" class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span></a>
         </div>
     </div>
     <input ng-model="model.date" type="date" class="form-control cl-register-options"

@@ -145,17 +145,39 @@
     function DisplayController($routeParams, UserService) {
         var vm = this;
         vm.username = $routeParams["username"];
+        vm.getInsta =  getInsta;
+
+        function getInsta() {
+            if (vm.insta) {
+                var feed = new Instafeed({
+                    get: 'user',
+                    userId: vm.instaID,
+                    accessToken: vm.token
+                });
+                feed.run();
+            }
+        }
 
         function init() {
             UserService
                 .findUserByUsername(vm.username)
-                .then(renderPage);
+                .then(renderPage)
+                .then(getInsta);
         }
         init();
 
         function renderPage(user) {
             vm.user = user;
             vm.date = user.dateCreated.split("-")[0];
+            vm.instaID = user.authID;
+            vm.token = user.accessToken;
+
+            console.log("devices", vm.user.device);
+
+
+            if (vm.token && vm.instaID) {
+                vm.insta = true;
+            }
         }
     }
 

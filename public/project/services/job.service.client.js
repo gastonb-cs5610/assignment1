@@ -33,7 +33,6 @@
         }
 
         function findAllJobs(search) {
-            console.log("client server find all jobs.");
             var url = '/api/project/job?search=' + search;
             return $http.get(url)
                 .then(function (response) {

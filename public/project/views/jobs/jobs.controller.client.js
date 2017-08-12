@@ -63,8 +63,9 @@
 
     function FindJobController(JobService) {
         var vm = this;
-        vm.jobsList = [];
+        vm.allJobs = [];
         vm.search = search;
+        vm.jobsList = [];
 
         function init() {
             JobService
@@ -75,24 +76,33 @@
 
         function findJobs(jobs) {
             var len = jobs.length;
+            if (jobs.len < 1) {
+                vm.error = "There are no jobs at this time.";
+                return;
+            }
             for (var i=0; i < len; i++) {
                 if (jobs[i].status = 'PENDING') {
-                    vm.jobsList.push(jobs[i]);
+                    vm.allJobs.push(jobs[i]);
                 }
             }
-            vm.jobsList = jobs;
-            if (jobs.length <= 1) {
-                vm.error = "There are no jobs at this time."
-            }
+            vm.jobsList = vm.allJobs;
         }
 
         function search() {
-            JobService
-                .findAllJobs(vm.search, vm.searchDate)
-                .then(function (jobs) {
-                    vm.jobList = [];
-                    vm.jobList = jobs;
-                })
+            vm.searchJobs = [];
+            var len = vm.allJobs.length;
+            for (var i = 0; i < len; i++) {
+                var job = vm.allJobs[i];
+                if (job.date === vm.searchDate
+                    || (vm.searchWords && (job.description.indexOf(vm.searchWords) !== -1)
+                    || job.name.indexOf(vm.searchWords) !== -1)) {
+                    vm.searchJobs.push(job);
+                }
+            }
+            vm.jobsList = vm.searchJobs;
+            if (vm.jobsList.length < 1) {
+                vm.error = "No jobs matching search."
+            }
         }
     }
 

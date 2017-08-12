@@ -27,7 +27,7 @@ app.get('/auth/instagram/callback',
 function renderInsta(req, res) {
     var token = req.user.accessToken;
     //TODO: HOW DO I GET THIS!!?!?!
-    res.redirect('https://api.instagram.com/v1/users/self/media/recent/access_token='+ token);
+    res.redirect('/project/#!/profile');
 }
 
 

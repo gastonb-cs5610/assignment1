@@ -22,7 +22,8 @@ function removePhotographer(jobId) {
 }
 
 function findAllJobs() {
-        return jobModel.find();
+    var response = jobModel.find();
+    return response;
 }
 
 function createJobForUser(userId, job) {
