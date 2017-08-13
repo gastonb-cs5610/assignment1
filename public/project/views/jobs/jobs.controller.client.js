@@ -8,19 +8,27 @@
         .controller("EditJobController", EditJobController);
 
 
-    function DisplayJobController($routeParams, JobService, HomeService, currentUser) {
+    function DisplayJobController($routeParams, JobService, HomeService, currentUser, UserService) {
         var vm = this;
         vm.jobId = $routeParams.jobId;
         vm.currentUserId = currentUser._id;
         vm.apply = apply;
+        vm.user = currentUser;
 
         function apply() {
             vm.job.interested.push(currentUser);
             JobService
                 .updateJob(vm.jobId, vm.job)
                 .then(function () {
-                    vm.applied = true;
-                })
+                    UserService
+                        .applyToJob(vm.currentUserId, vm.jobId)
+                        .then(function () {
+                            console.log("applied");
+                            vm.success = "Applied!";
+                            vm.applied = true;
+                        });
+                });
+
         }
 
         function init() {
@@ -47,12 +55,17 @@
 
         //Check if Taker has applied for position.
         function checkIfApplied() {
-            var len = currentUser.jobs;
+            console.log("In check")
+
+            var len = currentUser.jobs.length;
+            console.log(len)
             for (var i=0; i < len; i++) {
                 if (currentUser.jobs[i] === vm.jobId) {
-                    return false;
+                    console.log("In loop")
+                    return true;
                 }
             }
+            return false;
         }
 
         function checkIfOwned() {
@@ -110,24 +123,23 @@
         var vm = this;
         vm.userId = currentUser._id;
         vm.jobs = currentUser.jobs;
+        vm.type = currentUser.type;
         vm.jobsList = [];
         vm.logout = logout;
 
         function init() {
-            console.log("in iit");
-
             var len = vm.jobs.length;
             for (var i = 0; i < len; i++) {
                 JobService
                     .findJobById(vm.jobs[i])
                     .then(function (job) {
+                        console.log("JOBS Interest", job.interested.length);
                         vm.jobsList.push(job);
                     }, function (error) {
                         console.log("job not found.")
                     });
             }
         }
-
         init();
 
         function logout() {

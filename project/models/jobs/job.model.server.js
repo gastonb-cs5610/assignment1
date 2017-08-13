@@ -23,6 +23,7 @@ function removePhotographer(jobId) {
 
 function findAllJobs() {
     var response = jobModel.find();
+    console.log(response, "uh oh");
     return response;
 }
 

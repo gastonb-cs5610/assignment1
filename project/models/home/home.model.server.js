@@ -11,12 +11,18 @@ homeModel.updateUser = updateUser;
 homeModel.deleteUser = deleteUser;
 homeModel.deleteJob = deleteJob;
 homeModel.addJob = addJob;
-
-
-
+homeModel.applyToJob = applyToJob;
 
 
 module.exports = homeModel;
+
+function applyToJob(userId, job) {
+    return homeModel
+        .update(
+            {_id: userId},
+            {$addToSet: {jobs: job}}
+            )
+}
 
 function deleteJob(userId, jobId) {
     return homeModel
@@ -33,7 +39,8 @@ function addJob(userId, jobId) {
     return homeModel
         .findById(userId)
         .then(function (user) {
-            user.jobs.push(jobId);
+            user.jobs.addToSet(jobId);
+            console.log("job pushed");
             return user.save();
         });
 }

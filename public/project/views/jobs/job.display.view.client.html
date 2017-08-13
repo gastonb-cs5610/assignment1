@@ -23,14 +23,26 @@
     </div>
 </nav>
 
+<div ng-show="model.error" class="alert alert-success" role="alert">{{model.success}}</div>
+
 <section>
     <div class="container">
+
+        <div ng-show="model.error" class="alert alert-success" role="alert">{{model.success}}</div>
+
+
         <div class="row">
             <div class="col-lg-12">
+
+                <div ng-if="model.owned"
+                     class="alert alert-success"
+                     role="alert">You have been selected for this job.</div>
+
                 <h1 class="section-heading">{{model.job.name}}</h1>
                 <p class="lead section-lead">{{model.job.zip}}</p>
+                <p ng-if="model.owned" class="lead section-lead">{{model.job.location}}</p>
                 <p class="lead section-lead">{{model.job.date | date : 'shortDate'}}</p>
-                <p class="lead section-lead">Date: {{model.job.date | date : 'shortDate'}}     Time: {{model.startTime | date : 'hh:mm'}} - {{model.startTime | date : 'hh:mm'}}</p>
+                <p class="lead section-lead">Date: {{model.job.date | date : 'shortDate'}}     Time: {{model.startTime}} - {{model.endTime}}</p>
                 <p class="lead section-lead">Description: {{model.job.description}}</p>
                 <p class="lead section-lead">{{model.job.compensation}}</p>
 

@@ -41,8 +41,11 @@
                     <p class="cl-register-options"><b>Status</b></p>
                 </div>
 
-                <div class="col-3 hidden-md-down">
+                <div ng-if="model.type == 'SEEKER'" class="col-3 hidden-md-down">
                     <p class="cl-register-options"><b>Interested</b></p>
+                </div>
+                <div ng-if="model.type == 'TAKER'" class="col-3 hidden-md-down">
+                    <p class="cl-register-options"><b>Compensation</b></p>
                 </div>
                 <div class="col-xs-2">
                     <p class="cl-register-options"><b>Manage</b></p>
@@ -53,7 +56,7 @@
         <li ng-repeat="job in model.jobsList">
             <div class="row cl-list-row">
                 <div class="col-9 col-lg-3">
-                    <a href="#">
+                    <a href="#!/job-view/{{job._id}}">
                         <p class="cl-list-font">{{job.name}}</p>
                     </a>
                 </div>
@@ -63,12 +66,18 @@
                 <div class="col-2 hidden-md-down">
                     <p class="cl-list-font">{{job.status}}</p>
                 </div>
-                <div class="col-3 hidden-md-down">
+                <div ng-if="model.type === 'SEEKER'" class="col-3 hidden-md-down">
                     <p class="cl-list-font">{{job.interested.length}}</p>
                 </div>
-                <div class="col-xs-2">
+                <div ng-if="model.type === 'TAKER'" class="col-3 hidden-md-down">
+                    <p class="cl-list-font">{{job.compensation}}</p>
+                </div>
+                <div ng-if="model.type === 'SEEKER'" class="col-xs-2">
                     <a href="#!/interested-users/{{job._id}}"><span><i class="fa fa-user-o fa-2x" aria-hidden="true"></i></span></a>
                     <a href="#!/edit-job/{{job._id}}"><span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span></a>
+                </div>
+                <div ng-if="model.type === 'TAKER'" class="col-xs-2">
+                    <a href="#!/job-view/{{job._id}}"><span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span></a>
                 </div>
             </div>
         </li>
